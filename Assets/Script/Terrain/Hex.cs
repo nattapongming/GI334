@@ -138,6 +138,13 @@ public class Hex : MonoBehaviour
         }
     }
 
+    // Text Method
+
+    public void ToggleBasicText(bool flag)
+    {
+        hexText.gameObject.SetActive(flag);
+    }
+
     // Sprite Method
 
     private void RandomTerrainSprite(Sprite[] sprites)
