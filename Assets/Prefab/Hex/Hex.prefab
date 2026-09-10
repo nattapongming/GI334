@@ -624,6 +624,7 @@ MonoBehaviour:
   terrainSprites: []
   forestSprites: []
   specialHex: 0
+  hexText: {fileID: 1833766637561918660}
 --- !u!1 &7979986142107249318
 GameObject:
   m_ObjectHideFlags: 0

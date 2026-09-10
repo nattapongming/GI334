@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
+using TMPro;
 
 public enum HexType 
 {
@@ -86,7 +87,12 @@ public class Hex : MonoBehaviour
     [SerializeField] private bool specialHex;
     public bool SpecialHex { get { return specialHex; } set { specialHex = value; } }
 
-    
+    // Misc.
+    [Header("Misc.")]
+    [SerializeField] private TMP_Text hexText;
+    private GameManager gameManager;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
