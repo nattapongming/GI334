@@ -8,7 +8,7 @@ public enum HexType
     GrassLand,
     Prairie,
     Savanna,
-    Plain,
+    Jungle,
     Tundra,
     Desert,
     Swamp,
@@ -32,7 +32,7 @@ public class Hex : MonoBehaviour
     public Vector2 Pos { get { return pos; } set { pos = value; } }
 
     [SerializeField]
-    private HexType hexType = HexType.Plain;
+    private HexType hexType = HexType.GrassLand;
     public HexType HexType { get { return hexType; } }
 
     [Header("Basic")]

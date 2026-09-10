@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Terrain
+    uniqueID: 3941310023
+    locked: 0
   - name: TileMap
     uniqueID: 746792329
     locked: 0
@@ -49,4 +52,3 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
-  m_MigratedRenderPipelines: []
