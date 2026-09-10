@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Grid grid;
-    [SerializeField] Transform hexParrent;
+    [SerializeField] Transform hexParent;
     [SerializeField] GameObject hexPrefab;
 
     public const int WIDTH = 50;
@@ -36,12 +36,31 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        GenerateAllHexes();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void GenerateAllHexes()
+    {
+        for (int x = 0; x < WIDTH; x++)
+        {
+            for (int y = 0; y < HEIGHT; y++)
+            {
+                Vector3 hexPos = grid.GetCellCenterWorld(new Vector3Int(x, y));
+
+                // Create obj and call hex component to initialize it
+                GameObject hexObj = Instantiate(hexPrefab, hexPos, Quaternion.identity, hexParent);
+                Hex hex = hexObj.GetComponent<Hex>();
+
+                int i = Random.Range(1, hexData.Length);
+                hex.HextInit(x,y,hexPos, this, i);
+                allHexes[x, y] = hex;
+            }
+        }
     }
 }

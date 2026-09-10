@@ -104,4 +104,52 @@ public class Hex : MonoBehaviour
     {
         
     }
+
+
+    public void HextInit(int x, int y, Vector2 pos, GameManager gameManager, int i)
+    {
+        this.x = x;
+        this.y = y;
+        this.pos = pos;
+        this.gameManager = gameManager;
+
+        hexText.text = $"{x}, {y}";
+
+        hexName = gameManager.HexData[i].hexName;
+        hexType = gameManager.HexData[i].hexType;
+        terrainSprites = gameManager.HexData[i].terrainSprites;
+        forestSprites = gameManager.HexData[i].forestSprites;
+        resourceYields = gameManager.HexData[i].resourceYields;
+        moveCost = gameManager.HexData[i].moveCost;
+
+        RandomTerrainSprite(terrainSprites);
+
+        // When init 85% for forest
+        int n = Random.Range(1, 101);
+
+        if (n <= 85)
+        {
+            if (forestSprites.Length > 0)
+            {
+                RandomForestSprite(forestSprites);
+                hasForest = true;
+                moveCost += 1;
+            }
+        }
+    }
+
+    // Sprite Method
+
+    private void RandomTerrainSprite(Sprite[] sprites)
+    {
+        int i = Random.Range(0, sprites.Length);
+        terrainSprite.sprite = sprites[i];
+    }
+
+    private void RandomForestSprite(Sprite[] sprites)
+    {
+        int i = Random.Range(0, sprites.Length);
+        forestSprite.gameObject.SetActive(true);
+        forestSprite.sprite = sprites[i];
+    }
 }
