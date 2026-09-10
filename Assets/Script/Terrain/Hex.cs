@@ -38,6 +38,18 @@ public class Hex : MonoBehaviour
     [Header("Basic")]
     [SerializeField] private SpriteRenderer terrainSprite;
     [SerializeField] private SpriteRenderer forestSprite;
+    [SerializeField] private string hexName;
+    public string HexName { get { return hexName; } set { hexName = value; } }
+    [SerializeField] private int[] resourceYields;
+    public int[] ResourceYields { get { return resourceYields; } set { resourceYields = value; } }
+
+    [Header("Movecost")]
+    private int moveCost = 1;
+    public int MoveCost { get { return moveCost; } }
+    
+    
+    // For of War
+
 
     [Header("Fog of War")]
     [SerializeField] private SpriteRenderer fogSprite;
@@ -52,13 +64,29 @@ public class Hex : MonoBehaviour
     public bool HasRiver { get { return hasRiver; } set { hasRiver = value; } }
 
     [Header("Forest")]
-    [SerializeField] private bool hasForset;
-    public bool HasForset { get { return hasForset; } set {hasForset = value; } }
+    [SerializeField] private bool hasForest;
+    public bool HasForest { get { return hasForest; } set { hasForest = value; } }
 
-    [Header("Movecost")]
-    private int moveCost = 1;
-    public int MoveCost { get { return moveCost; } }
+    
 
+    // Sprites
+
+
+    [Header("Terrain")]
+    [SerializeField] private Sprite[] terrainSprites;
+
+    [Header("Forest")]
+    [SerializeField] private Sprite[] forestSprites;
+
+    
+    // Special
+
+
+    [Header("Special")]
+    [SerializeField] private bool specialHex;
+    public bool SpecialHex { get { return specialHex; } set { specialHex = value; } }
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
