@@ -12,9 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6271082f7e3c3e347aec6031280c5929, type: 3}
   m_Name: 06_Desert
   m_EditorClassIdentifier: Assembly-CSharp::HexData
-  hexName: 
-  hexType: 0
-  terrainSprites: []
-  forestSprites: []
+  hexName: Desert
+  hexType: 6
+  terrainSprites:
+  - {fileID: 21300000, guid: fa7a0fcf9de86b94bb86b6854fd6ee97, type: 3}
+  - {fileID: 21300000, guid: 629bc9f4761e3844094cb25beab91240, type: 3}
+  - {fileID: 21300000, guid: 7d19f09da451fbb45a0e8b8919e074e4, type: 3}
+  - {fileID: 21300000, guid: dfbfc9476258b8d4b9ba7f8024566e9e, type: 3}
+  forestSprites:
+  - {fileID: 21300000, guid: a10fe4bd31bd25642ac984bb745602a2, type: 3}
+  - {fileID: 21300000, guid: af10ea495e4c5444483486aad9728b38, type: 3}
+  - {fileID: 21300000, guid: 481a96d13d14a834aa24c21b5a12faa2, type: 3}
+  - {fileID: 21300000, guid: e9169d5695cc17a4a8367b2894ff8e69, type: 3}
   resourceYields: 
-  moveCost: 0
+  moveCost: 1

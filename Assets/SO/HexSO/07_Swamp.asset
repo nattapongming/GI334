@@ -12,9 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6271082f7e3c3e347aec6031280c5929, type: 3}
   m_Name: 07_Swamp
   m_EditorClassIdentifier: Assembly-CSharp::HexData
-  hexName: 
-  hexType: 0
-  terrainSprites: []
-  forestSprites: []
+  hexName: Swamp
+  hexType: 7
+  terrainSprites:
+  - {fileID: 21300000, guid: a12a68878993f0c4db70a9035a3201c4, type: 3}
+  - {fileID: 21300000, guid: cc2c6cb7ff38e35498efbbf1d0a9041b, type: 3}
+  - {fileID: 21300000, guid: 75d07c3e57e4cf9439d4c75019a91bf8, type: 3}
+  - {fileID: 21300000, guid: efff342cf7091ef43b4e4f538491acf2, type: 3}
+  forestSprites:
+  - {fileID: 21300000, guid: 106a88bf9d51d8f44a3e868455968383, type: 3}
+  - {fileID: 21300000, guid: ab152cd2fa4d79649ba57f62302c1427, type: 3}
+  - {fileID: 21300000, guid: 2e1d7e1f8e9dc49408847e0b8bae6ac3, type: 3}
+  - {fileID: 21300000, guid: a087a52d6545e68448ba758923e441ce, type: 3}
   resourceYields: 
-  moveCost: 0
+  moveCost: 2

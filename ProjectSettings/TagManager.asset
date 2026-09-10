@@ -50,5 +50,8 @@ TagManager:
   - name: FogOfWar
     uniqueID: 1482557447
     locked: 0
+  - name: Ui
+    uniqueID: 375520683
+    locked: 0
   m_RenderingLayers:
   - Default

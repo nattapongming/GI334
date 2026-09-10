@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6271082f7e3c3e347aec6031280c5929, type: 3}
   m_Name: 09_Hills
   m_EditorClassIdentifier: Assembly-CSharp::HexData
-  hexName: 
-  hexType: 0
-  terrainSprites: []
+  hexName: Hills
+  hexType: 9
+  terrainSprites:
+  - {fileID: 21300000, guid: 07e5421eb2b06c244b1f7f203e82ebae, type: 3}
+  - {fileID: 21300000, guid: 58989ae37e04192448bea59d201482b4, type: 3}
+  - {fileID: 21300000, guid: 32d4241771156ef4c8fbd37cf46f9783, type: 3}
+  - {fileID: 21300000, guid: 6beaec3ab6f823747b8e6614c63f9774, type: 3}
   forestSprites: []
   resourceYields: 
-  moveCost: 0
+  moveCost: 2

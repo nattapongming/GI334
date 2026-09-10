@@ -14,7 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HexData
   hexName: Tundra
   hexType: 5
-  terrainSprites: []
-  forestSprites: []
+  terrainSprites:
+  - {fileID: 21300000, guid: 75bebaae5e5e2bc46af89668507f4001, type: 3}
+  - {fileID: 21300000, guid: ba2985fce3efa5b44978ca06fcd0ae52, type: 3}
+  - {fileID: 21300000, guid: 9cf10f7527d970242955dbce7d64f062, type: 3}
+  - {fileID: 21300000, guid: 9e55497af8ec6c344819e0a111da86dd, type: 3}
+  forestSprites:
+  - {fileID: 21300000, guid: 368e9b23f029936488e4c8ebe270797b, type: 3}
+  - {fileID: 21300000, guid: 1499c0fbdef9e9c44bd56f82a0bba46c, type: 3}
+  - {fileID: 21300000, guid: 7d30cdb4e13498c4c9175a209301dae0, type: 3}
+  - {fileID: 21300000, guid: d072f3f489257d048ad83ed53aa40c89, type: 3}
   resourceYields: 
-  moveCost: 0
+  moveCost: 1
