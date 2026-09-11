@@ -49,7 +49,7 @@ public static class HexCalculator
 
             case HexDirection.BottomLeft:
                 if ((y % 2) == 0)
-                    x += 1;
+                    x -= 1;
                 y -= 1;
                 break;
 

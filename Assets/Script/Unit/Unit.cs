@@ -60,7 +60,7 @@ public class Unit : MonoBehaviour
     public bool IsMoving { get { return isMoving; } set { isMoving = value; } }
 
     [SerializeField] protected bool isVisible;
-    public bool IsVisible { get { return isVisible; } set { isVisible = value; } }
+    public bool Visible { get { return isVisible; } set { isVisible = value; } }
 
     
     [Header("Unit")]
