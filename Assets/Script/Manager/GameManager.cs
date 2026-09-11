@@ -72,6 +72,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Unit curAiUnit;
     public Unit CurAiUnit { get { return curAiUnit; } set { curAiUnit = value; } }
+
+
+    // Unit Data
+
+    [SerializeField] private LandUnitData[] landUnitData;
+    public LandUnitData[] LandUnitData { get { return landUnitData; } }
+
+    [SerializeField] private NavalUnitData[] navalUnitData;
+    public NavalUnitData[] NavalUnitData { get { return navalUnitData; } }
+
     void Awake()
     {
         if (instance == null)
@@ -91,6 +101,8 @@ public class GameManager : MonoBehaviour
         SelectPlayerFaction();
         DetermineOcean();
         GenerateAllHexes();
+
+        GenerateAllEuropeanShips();
     }
 
     // Update is called once per frame
@@ -103,6 +115,29 @@ public class GameManager : MonoBehaviour
     }
 
     // Generate Methods
+
+    private void GenerateEuroShip(Faction fact)
+    {
+        int x = WIDTH - 1; // near right edge of the map
+        int y = Random.Range(0,HEIGHT);
+        Hex hex = allHexes[x,y];
+
+        GameObject obj = Instantiate(navelUnitPrefab, hex.Pos, Quaternion.identity, fact.UnitParent);
+        NavalUnit ship = obj.GetComponent<NavalUnit>();
+
+        ship.UnitInit(this, fact, navalUnitData[0]); // init Caravel
+        ship.SetUpPosition(hex);
+        fact.Units.Add(ship); //First Unit of European nations is a ship
+
+    }
+
+    private void GenerateAllEuropeanShips()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GenerateEuroShip(factions[i]);
+        }
+    }
 
     private void GenerateAllHexes()
     {

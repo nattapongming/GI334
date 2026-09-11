@@ -44,6 +44,9 @@ TagManager:
   - name: Terrain
     uniqueID: 3941310023
     locked: 0
+  - name: Unit
+    uniqueID: 2844012453
+    locked: 0
   - name: TileMap
     uniqueID: 746792329
     locked: 0
