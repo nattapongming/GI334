@@ -122,6 +122,8 @@ public class Hex : MonoBehaviour
         resourceYields = gameManager.HexData[i].resourceYields;
         moveCost = gameManager.HexData[i].moveCost;
 
+        SetSortingOrder();
+
         RandomTerrainSprite(terrainSprites);
 
         // When init 85% for forest
@@ -135,6 +137,30 @@ public class Hex : MonoBehaviour
                 hasForest = true;
                 moveCost += 1;
             }
+        }
+    }
+
+    private void SetSortingOrder()
+    {
+        // Sorting Order
+        int baseOrder = y * -10;
+
+        terrainSprite.sortingOrder = baseOrder;
+        forestSprite.sortingOrder = baseOrder + 1;
+        fogSprite.sortingOrder = baseOrder + 5;
+        darkSprite.sortingOrder = baseOrder + 6;
+
+        // Artic, Hills, Mountain Sorting Order
+        // Just in case want to know which one is higher than flat
+        switch (hexType)
+        {
+            case HexType.Arctic:
+                break;
+            case HexType.Hills:
+                break;
+            case HexType.Mountain:
+                terrainSprite.sortingOrder = baseOrder + 1; // Higher terrain
+                break;
         }
     }
 
