@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public enum HexType 
 {
@@ -18,7 +19,7 @@ public enum HexType
     Mountain
 }
 
-public class Hex : MonoBehaviour
+public class Hex : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private int x;
@@ -79,6 +80,8 @@ public class Hex : MonoBehaviour
     [Header("Forest")]
     [SerializeField] private Sprite[] forestSprites;
 
+    [SerializeField] protected bool visible = false;
+    public bool Visible { get { return visible; } set { visible = value; } }
     
     // Special
 
@@ -187,12 +190,15 @@ public class Hex : MonoBehaviour
     {
         ToggleFog(false);
         ToggleDark(false);
+        visible = true;
+
     }
 
     public void SeenHex()
     {
         ToggleFog(true);
         ToggleDark(false);
+        visible = false;
     }
 
     // Text Method
@@ -215,5 +221,16 @@ public class Hex : MonoBehaviour
         int i = Random.Range(0, sprites.Length);
         forestSprite.gameObject.SetActive(true);
         forestSprite.sprite = sprites[i];
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (gameManager.CheckIfHexIsAdjacent(gameManager.CurUnit.CurHex, this))
+            {
+                gameManager.CurUnit.PrepareMoveToHex(this);
+            }
+        }
     }
 }

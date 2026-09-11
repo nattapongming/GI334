@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
         GenerateAllHexes();
 
         GenerateAllEuropeanShips();
+        GenerateAllEuropeanExploreUnits();
     }
 
     // Update is called once per frame
@@ -112,6 +113,9 @@ public class GameManager : MonoBehaviour
         {
             ToggleHexText();
         }
+
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
+            SelectNextPlayerUnit();
     }
 
     // Hex method
@@ -147,17 +151,46 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool CheckIfHexIsAdjacent(Hex centerHex, Hex targetHex)
+    {
+        List<Hex> adjHexes = HexCalculator.GetHexAround(allHexes, centerHex);
+
+        return (adjHexes.Contains(targetHex)) ? true : false;
+    }
+
+    public void LeaveSeenFogAroundUnit(Unit unit)
+    {
+        unit.CurHex.SeenHex();
+
+        List<Hex> adjHexes = HexCalculator.GetHexAround(allHexes, unit.CurHex);
+
+        foreach (Hex hex in adjHexes)
+        {
+            hex.SeenHex();
+        }
+    }
+
+    public void ClearDarkFogAroundEveryUnit(Faction faction)
+    {
+        foreach (Unit unit in faction.Units)
+        {
+            ClearDarkFogAroundUnit(unit);
+        }
+    }
+
     public void SelectPlayerUnit(Unit unit)
     {
         if (curUnit != null)
         {
             ClearToggleBorder(curUnit);
+            curUnit.SetUnitToNormalLayerOrder();
 
             if (curUnit.UnitStatus == UnitStatus.OnBoard)
                 curUnit.gameObject.SetActive(false);
         }
 
         unit.gameObject.SetActive(true);
+        unit.SetUnitToFrontLayerOrder();
 
         curUnit = unit;
 
@@ -185,6 +218,30 @@ public class GameManager : MonoBehaviour
             SelectPlayerUnit(ship);
             CameraController.instance.MoveCamera(ship.CurPos);
             ship.Visible = true;
+        }
+    }
+
+    private void GeneratePassengerUnit(Faction faction, Hex hex, int unitId, bool show, NavalUnit ship)
+    {
+        GameObject obj = Instantiate(landUnitPrefab, hex.Pos, Quaternion.identity, ship.PassengerParent.transform);
+        LandUnit unit = obj.GetComponent<LandUnit>();
+
+        unit.UnitInit(this, faction, landUnitData[unitId]);
+        obj.SetActive(false);
+
+        faction.Units.Add(unit);
+        ship.Passengers.Add(unit);
+    }
+
+    private void GenerateAllEuropeanExploreUnits()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            NavalUnit firstShip = factions[i].Units[0].gameObject.GetComponent<NavalUnit>();
+
+            GeneratePassengerUnit(factions[i], firstShip.CurHex, 1, false, firstShip); // Veteran Soldiers
+
+            GeneratePassengerUnit(factions[i], firstShip.CurHex, 2, false, firstShip); // Hardy Pioneers
         }
     }
 
@@ -320,5 +377,32 @@ public class GameManager : MonoBehaviour
             hex.ToggleBasicText(!showingText);
 
         showingText = !showingText;
+    }
+
+    private int FindIndexOfCurUnit()
+    {
+        if (playerFaction.Units.Contains(curUnit))
+        {
+            for (int i = 0; i < playerFaction.Units.Count; i++)
+            {
+                if (curUnit == playerFaction.Units[i])
+                    return i;
+            }
+            return -1;
+        }
+        else
+            return -1;
+    }
+
+    private void SelectNextPlayerUnit()
+    {
+        int i = FindIndexOfCurUnit();
+        i++;
+
+        if (i >= playerFaction.Units.Count)
+            i = 0;
+
+        SelectPlayerUnit(playerFaction.Units[i]);
+        CameraController.instance.MoveCamera(curUnit.transform.position);
     }
 }

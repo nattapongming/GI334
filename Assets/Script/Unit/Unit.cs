@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum UnitType
 {
@@ -15,7 +16,7 @@ public enum UnitStatus
     Building
 }
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IPointerClickHandler
 {
     // Basic info
 
@@ -74,11 +75,80 @@ public class Unit : MonoBehaviour
 
     [SerializeField] protected GameManager gameMgr;    
 
+    protected virtual void Update()
+    {
+        if (isMoving == true)
+        {
+            MoveToHex();
+        }
+    }
+
+    // OnHex
+
     public void SetUpPosition(Hex hex)
     {
         curHex = hex;
         curPos = hex.Pos;
     }
+
+    protected virtual void StayOnHex(Hex targetHex)
+    {
+        isMoving = false;
+        curHex = targetHex;
+        targetHex = null;
+        transform.position = curHex.transform.position;
+
+        if (faction == gameMgr.PlayerFaction)
+        {
+            gameMgr.ClearDarkFogAroundUnit(this);
+            ToggleBorder(true, Color.green);
+        }
+    }
+
+    private void MoveToHex()
+    {
+        ToggleBorder(false, Color.green);
+
+        transform.position = Vector2.MoveTowards(curPos, targetHex.transform.position, 4 * Time.deltaTime);
+        curPos = transform.position;
+
+        if (curPos == targetHex.Pos)
+        {
+            movePoint -= targetHex.MoveCost;
+            StayOnHex(targetHex);
+
+            if (faction == gameMgr.PlayerFaction)
+            gameMgr.ClearDarkFogAroundEveryUnit(faction);
+        }
+    }
+
+    // Move Methods
+
+    public void SetUnitToFrontLayerOrder()
+    {
+        unitSprite.sortingOrder = 5;
+        flagSprite.sortingOrder = 6;
+    }
+
+    public void SetUnitToNormalLayerOrder()
+    {
+        unitSprite.sortingOrder = 2;
+        flagSprite.sortingOrder = 3;
+    }
+
+    public virtual void PrepareMoveToHex(Hex target)
+    {
+        if (target.MoveCost > movePoint)
+            return;
+
+        isMoving = true;
+        targetHex = target;
+
+        if (faction == gameMgr.PlayerFaction)
+            gameMgr.LeaveSeenFogAroundUnit(this);
+    }
+
+    // Sprite Methods
 
     public void ToggleBorder(bool flag, Color32 color)
     {
@@ -90,5 +160,15 @@ public class Unit : MonoBehaviour
     {
         unitSprite.gameObject.SetActive(flag);
         flagSprite.gameObject.SetActive(flag);
+    }
+
+    // Input Methods
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (faction == gameMgr.PlayerFaction)
+        {
+            gameMgr.SelectPlayerUnit(this);
+        }
     }
 }

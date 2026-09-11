@@ -42,4 +42,25 @@ public class NavalUnit : Unit
         armed = data.armed;
         cargoHoldNum = data.cargoHoldNum;
     }
+
+    public override void PrepareMoveToHex(Hex target)
+    {
+        base.PrepareMoveToHex(target);
+
+        if (target.HexType != HexType.Ocean)
+        {
+            StayOnHex(curHex);
+        }
+    }
+
+    protected override void StayOnHex(Hex hex)
+    {
+        base.StayOnHex(hex);
+
+        foreach (LandUnit unit in passengers)
+        {
+            unit.CurHex = hex;
+            unit.CurPos = hex.Pos;
+        }
+    }
 }
