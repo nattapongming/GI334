@@ -48,6 +48,11 @@ public class CameraController : MonoBehaviour
         transform.position += dir * moveSpeed * Time.deltaTime; 
     }
 
+    public void MoveCamera(Vector3 pos)
+    {
+        transform.position = new Vector3(pos.x, pos.y, -10f);
+    }
+
     void ZoomInOut()
     {
         zoomValue = zoomAction.ReadValue<Vector2>();

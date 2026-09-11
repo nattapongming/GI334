@@ -34,8 +34,8 @@ public class Unit : MonoBehaviour
     [SerializeField] protected int movePoint;
     public int MovePoint { get { return movePoint; } set { movePoint = value; } }
 
-    [SerializeField] protected int maxMovePointMax;
-    public int MaxMovePointMax { get { return maxMovePointMax; } }
+    [SerializeField] protected int movePointMax;
+    public int MovePointMax { get { return movePointMax; } }
 
     [SerializeField] protected Faction faction;
     public Faction Faction { get { return faction; } }
@@ -73,4 +73,22 @@ public class Unit : MonoBehaviour
     [SerializeField] protected SpriteRenderer borderSprite;
 
     [SerializeField] protected GameManager gameMgr;    
+
+    public void SetUpPosition(Hex hex)
+    {
+        curHex = hex;
+        curPos = hex.Pos;
+    }
+
+    public void ToggleBorder(bool flag, Color32 color)
+    {
+        borderSprite.gameObject.SetActive(flag);
+        borderSprite.color = color;
+    }
+
+    public void ShowHideSprite(bool flag)
+    {
+        unitSprite.gameObject.SetActive(flag);
+        flagSprite.gameObject.SetActive(flag);
+    }
 }

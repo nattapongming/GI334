@@ -56,6 +56,22 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private FactionData[] factionData;
     public FactionData[] FactionDatas { get { return factionData; } }
+
+
+    // Unit Prefab
+
+    [SerializeField] private GameObject landUnitPrefab;
+    [SerializeField] private GameObject navelUnitPrefab;
+    [SerializeField] private GameObject townPrefab;
+
+
+    // Cur unit
+
+    [SerializeField] private Unit curUnit;
+    public Unit CurUnit { get { return curUnit; } set { curUnit = value; } }
+
+    [SerializeField] private Unit curAiUnit;
+    public Unit CurAiUnit { get { return curAiUnit; } set { curAiUnit = value; } }
     void Awake()
     {
         if (instance == null)
@@ -72,7 +88,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetUpFaction();
-
+        SelectPlayerFaction();
         DetermineOcean();
         GenerateAllHexes();
     }
@@ -196,6 +212,11 @@ public class GameManager : MonoBehaviour
         {
             factions[i].FactionInit(factionData[i]);
         }
+    }
+
+    public void SelectPlayerFaction(int index = 0)
+    {
+        playerFaction = factions[index];
     }
 
     // Helper Methods
