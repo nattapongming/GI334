@@ -138,6 +138,16 @@ public class Hex : MonoBehaviour
         }
     }
 
+    // Hex Methods
+
+    public void ClearForest()
+    {
+        hasForest = false;
+        forestSprite.gameObject.SetActive(false);
+        moveCost -= 1;
+    }
+
+
     // Text Method
 
     public void ToggleBasicText(bool flag)
