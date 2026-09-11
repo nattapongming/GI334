@@ -20,6 +20,9 @@ public class Faction : MonoBehaviour
     [SerializeField] private Transform townParent;
     public Transform TownParent { get { return townParent; } }
 
+    [SerializeField] private Transform unitParent;
+    public Transform UnitParent { get { return unitParent;} }
+
     [SerializeField] private Sprite flagIcon;
     public Sprite FlagIcon { get { return flagIcon; } }
 

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    // Grid
+
     [SerializeField] private Grid grid;
     [SerializeField] Transform hexParent;
     [SerializeField] GameObject hexPrefab;
@@ -44,6 +46,16 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    // Faction
+
+    [SerializeField] private Faction playerFaction;
+    public Faction PlayerFaction { get { return playerFaction; } }
+
+    [SerializeField] private Faction[] factions;
+    public Faction[] Factions { get { return factions; } }
+
+    [SerializeField] private FactionData[] factionData;
+    public FactionData[] FactionDatas { get { return factionData; } }
     void Awake()
     {
         if (instance == null)
@@ -59,6 +71,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SetUpFaction();
+
         DetermineOcean();
         GenerateAllHexes();
     }
@@ -174,6 +188,15 @@ public class GameManager : MonoBehaviour
         oceanEdgeIndex = WIDTH - Random.Range(7, 10);
     }
 
+    // Faction Methods
+
+    private void SetUpFaction()
+    {
+        for (int i = 0; i < factions.Length; i++)
+        {
+            factions[i].FactionInit(factionData[i]);
+        }
+    }
 
     // Helper Methods
 
