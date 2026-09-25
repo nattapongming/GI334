@@ -1095,6 +1095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018371048}
+  - component: {fileID: 1018371049}
   - component: {fileID: 1018371047}
   m_Layer: 0
   m_Name: GameManager
@@ -1186,6 +1187,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9072b7abeaf78d4786a7ee32e58fc5a, type: 2}
   - {fileID: 11400000, guid: 4e2e3346a6a62b24592589eb27f86ba5, type: 2}
   - {fileID: 11400000, guid: 468fbe69c73905a4e9f76362d06f73f5, type: 2}
+  gameTurn: 0
   playerTurn: 1
   nativeTownNum: 0
 --- !u!4 &1018371048
@@ -1203,6 +1205,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1018371049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018371046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74ac3903ec0c944f8ca542fcd0634f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AiManager
 --- !u!1 &1225301799
 GameObject:
   m_ObjectHideFlags: 0

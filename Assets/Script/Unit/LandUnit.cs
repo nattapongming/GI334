@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum LandUnitType
 {
@@ -40,6 +41,46 @@ public class LandUnit : Unit
     [SerializeField] private bool hasHorse;
     public bool HasHorse { get { return hasHorse; } set { hasHorse = value; } }
 
+    [SerializeField] private NavalUnit transportShip;
+    public NavalUnit TransportShip { get { return transportShip;} set { transportShip = value; } }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (Keyboard.current.bKey.wasPressedThisFrame)
+        {
+            if (this == gameMgr.CurUnit)
+                BuildSettlement();
+        }
+
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            if (this == gameMgr.CurUnit)
+                ClearingLand();
+        }
+    }
+
+    public override void PrepareMoveToHex(Hex target)
+    {
+        if (unitStatus == UnitStatus.OnBoard)
+        {
+            SetUpPosition(transportShip.CurHex);
+            transform.position = CurPos;
+        }
+
+        if (target.HexType != HexType.Ocean)
+        {
+            base.PrepareMoveToHex(target);
+            if (unitStatus == UnitStatus.OnBoard)
+                MakeLandFall();
+        }
+        else
+        {
+            StayOnHex(curHex);
+        }
+    }
+
     public void UnitInit(GameManager gameMgr, Faction fact, LandUnitData data)
     {
         this.gameMgr = gameMgr;
@@ -68,5 +109,61 @@ public class LandUnit : Unit
         if (hasHorse)
             horseNum = 50;
 
+    }
+
+    private void MakeLandFall()
+    {
+        unitStatus = UnitStatus.None;
+        gameObject.transform.parent = faction.UnitParent.transform;
+        transportShip.Passengers.Remove(this);
+        transportShip = null;
+    }
+
+    public void ClearingLand()
+    {
+        if (unitStatus == UnitStatus.Clearing) 
+            return;
+
+        if (curHex.HexType == HexType.Ocean 
+        || curHex.HexType == HexType.Mountain
+        || curHex.HexType == HexType.Hills
+        || !curHex.HasForest)
+        {
+            Debug.Log("Must be on Forest");
+        }
+        else if (toolsNum < 20)
+        {
+            Debug.Log("Not enough tools");
+        }
+        else
+        {
+            unitStatus = UnitStatus.Clearing;
+            toolsNum -= 20;
+        }
+    }
+
+    public void BuildSettlement()
+    {
+        if (unitStatus == UnitStatus.Building || curHex.HasTown)
+            return;
+
+        Debug.Log("Build Settlement");
+
+        if (curHex.HexType == HexType.Ocean 
+        || curHex.HexType == HexType.Mountain
+        || curHex.HexType == HexType.Hills
+        || curHex.HasForest)
+        {
+            Debug.Log("Must be on Cleared Land");
+        }
+        else if (toolsNum < 20)
+        {
+            Debug.Log("Not enough tools");
+        }
+        else
+        {
+            unitStatus = UnitStatus.Building;
+            toolsNum -= 20;
+        }
     }
 }

@@ -82,6 +82,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NavalUnitData[] navalUnitData;
     public NavalUnitData[] NavalUnitData { get { return navalUnitData; } }
 
+    // Turn
+
+    [SerializeField] private int gameTurn;
+    public int GameTurn { get { return gameTurn; } set { gameTurn = value;} }
+    
     // Player turn
 
     [SerializeField] private bool playerTurn = true;
@@ -126,6 +131,9 @@ public class GameManager : MonoBehaviour
 
         if (Keyboard.current.tabKey.wasPressedThisFrame)
             SelectNextPlayerUnit();
+
+        if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+            EndTurn();
     }
 
     // Hex method
@@ -168,6 +176,20 @@ public class GameManager : MonoBehaviour
         return (adjHexes.Contains(targetHex)) ? true : false;
     }
 
+    // Turn method
+
+    public void EndTurn()
+    {
+        if (curUnit != null)
+            curUnit.ToggleBorder(false, Color.green);
+
+            Debug.Log("EndTurn");
+            playerTurn = false;
+            AiManager.instance.StartAiTurn();
+    }
+
+    // Unit method
+
     public void LeaveSeenFogAroundUnit(Unit unit)
     {
         unit.CurHex.SeenHex();
@@ -188,6 +210,44 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CheckUnitClearingLand(Faction faction, Unit unit)
+    {
+        if (unit.UnitStatus == UnitStatus.Clearing)
+        {
+            unit.CurHex.ClearForest();
+            unit.UnitStatus = UnitStatus.None;
+        }
+    }
+
+    public void CheckUnitBuildingSettlement(Faction faction, Unit unit)
+    {
+        if (unit.UnitStatus == UnitStatus.Building)
+        {
+            GenerateTown(faction, unit.CurHex);
+            unit.UnitStatus = UnitStatus.None;
+        }
+    }
+
+    public void ResetAllUnits(Faction faction)
+    {
+        foreach (Unit unit in faction.Units)
+        {
+            CheckUnitClearingLand(faction, unit);
+            CheckUnitBuildingSettlement(faction, unit);
+            unit.MovePoint = unit.MovePointMax;
+        }
+    }
+
+    public void SelectAiUnit(Unit unit)
+    {
+        if (curUnit != null)
+            ClearToggleBorder(curUnit);
+
+        curAiUnit = unit;
+
+        FocusPlayerUnit(curAiUnit);
+    }
+
     public void SelectPlayerUnit(Unit unit)
     {
         if (curUnit != null)
@@ -205,6 +265,16 @@ public class GameManager : MonoBehaviour
         curUnit = unit;
 
         FocusPlayerUnit(curUnit);
+    }
+
+    public void SelectPlayerFirstUnit()
+    {
+        if (playerFaction.Units.Count > 0)
+        {
+            Unit firstUnit = playerFaction.Units[0];
+            SelectPlayerUnit(firstUnit);
+            CameraController.instance.MoveCamera(firstUnit.CurPos);
+        }
     }
 
     // Generate Methods
@@ -237,10 +307,13 @@ public class GameManager : MonoBehaviour
         LandUnit unit = obj.GetComponent<LandUnit>();
 
         unit.UnitInit(this, faction, landUnitData[unitId]);
+        unit.SetUpPosition(hex);
+        unit.UnitStatus = UnitStatus.OnBoard;
         obj.SetActive(false);
 
         faction.Units.Add(unit);
         ship.Passengers.Add(unit);
+        unit.TransportShip = ship;
     }
 
     private void GenerateAllEuropeanExploreUnits()
