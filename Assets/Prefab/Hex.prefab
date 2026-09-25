@@ -107,7 +107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6451841040446953740
 Transform:
   m_ObjectHideFlags: 0
@@ -623,6 +623,7 @@ MonoBehaviour:
   hasForest: 0
   terrainSprites: []
   forestSprites: []
+  visible: 0
   specialHex: 0
   hexText: {fileID: 1833766637561918660}
 --- !u!1 &7979986142107249318
@@ -641,7 +642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5365457657782904434
 Transform:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class Town : MonoBehaviour
 
     [SerializeField] protected GameManager gameMgr;
 
-    public void TownInt(GameManager gameMgr, Faction fact)
+    public void TownInit(GameManager gameMgr, Faction fact)
     {
         this.gameMgr = gameMgr;
         faction = fact;

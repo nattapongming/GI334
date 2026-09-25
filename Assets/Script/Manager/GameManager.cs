@@ -82,6 +82,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NavalUnitData[] navalUnitData;
     public NavalUnitData[] NavalUnitData { get { return navalUnitData; } }
 
+    // Player turn
+
+    [SerializeField] private bool playerTurn = true;
+    public bool PlayerTurn { get { return playerTurn; } set { playerTurn = value; } }
+
+    [SerializeField] private int nativeTownNum;
+
+
     void Awake()
     {
         if (instance == null)
@@ -104,6 +112,8 @@ public class GameManager : MonoBehaviour
 
         GenerateAllEuropeanShips();
         GenerateAllEuropeanExploreUnits();
+        GenerateAllNativeTowns();
+        GenerateAllNativeUnits();
     }
 
     // Update is called once per frame
@@ -345,6 +355,68 @@ public class GameManager : MonoBehaviour
         {
             hex.ClearForest();
             GenerateBiome(x, y, hex, hexPos, 9, new List<int> {10}); // Mountains
+        }
+    }
+
+    public void GenerateTown(Faction faction, Hex curHex)
+    {
+        GameObject obj = Instantiate(townPrefab, curHex.Pos,Quaternion.identity, faction.TownParent);
+        Town town = obj.GetComponent<Town>();
+
+        town.TownInit(this, faction);
+        town.CurHex = curHex;
+        town.CurPos = town.CurHex.Pos;
+        faction.Towns.Add(town);
+
+        curHex.HasTown = true;
+    }
+
+    private void GenerateAllNativeTowns()
+    {
+        for (int i = 5; i < factions.Length; i++)
+        {
+            nativeTownNum = Random.Range(5, 10);
+
+            for (int j = 0; j < nativeTownNum; j++)
+            {
+                int landEdge = oceanEdgeIndex - 1;
+
+                int x = Random.Range(0, landEdge);
+                int y = Random.Range(0, HEIGHT);
+                Hex hex = allHexes[x, y];
+
+                if (HexCalculator.CheckIfHexAroundHasTown(allHexes, hex))
+                    continue;
+
+                if (hex.HexType == HexType.Mountain || hex.HexType == HexType.Ocean)
+                    continue;
+
+                    if (hex.HexType != HexType.Ocean)
+                    GenerateTown(factions[i], hex);
+            }
+        }
+    }
+
+    private void GenerateLandUnit(Faction faction, Hex hex, int unitId, bool show)
+    {
+        GameObject obj = Instantiate(landUnitPrefab, hex.Pos, Quaternion.identity, faction.UnitParent);
+        LandUnit unit = obj.GetComponent<LandUnit>();
+
+        unit.UnitInit(this, faction, landUnitData[unitId]);
+        unit.SetUpPosition(hex);
+        unit.ShowHideSprite(show);
+
+        faction.Units.Add(unit);
+    }
+
+    private void GenerateAllNativeUnits()
+    {
+        for (int i = 5; i < factions.Length; i++)
+        {
+            foreach (Town town in factions[i].Towns)
+            {
+                GenerateLandUnit(factions[i], town.CurHex, 4, false);
+            }
         }
     }
 

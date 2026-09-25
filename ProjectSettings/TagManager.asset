@@ -47,6 +47,9 @@ TagManager:
   - name: Unit
     uniqueID: 2844012453
     locked: 0
+  - name: Town
+    uniqueID: 3891095643
+    locked: 0
   - name: TileMap
     uniqueID: 746792329
     locked: 0
