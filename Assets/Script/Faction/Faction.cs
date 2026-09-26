@@ -25,6 +25,9 @@ public class Faction : MonoBehaviour
     [SerializeField] private bool isEuropean;
     public bool IsEuropean { get { return isEuropean; } }
 
+    [SerializeField] private bool isTropicalNative;
+    public bool IsTropicalNative { get { return isTropicalNative; } }
+
     [SerializeField] private Transform townParent;
     public Transform TownParent { get { return townParent; } }
 
@@ -56,6 +59,7 @@ public class Faction : MonoBehaviour
     {
         nation = data.nation;
         isEuropean = data.isEuropean;
+        isTropicalNative = data.isTropicalNative;
         flagIcon = data.flagIcon;
         shieldIcon = data.shieldIcon;
         unitIcon = data.unitIcon;

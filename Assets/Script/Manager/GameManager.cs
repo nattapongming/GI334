@@ -228,6 +228,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public NavalUnit CheckIfHexHasOurShipToBoard(Hex hex)
+    {
+        foreach (Unit unit in hex.UnitsInHex)
+        {
+            if (unit.UnitType == UnitType.Naval && unit.Faction == playerFaction)
+            {
+                NavalUnit ship = (NavalUnit)unit;
+                if (ship.Passengers.Count < ship.CargoHoldNum)
+                    return ship;
+            }
+        }
+        return null;
+    }
+
     public void ResetAllUnits(Faction faction)
     {
         foreach (Unit unit in faction.Units)
@@ -488,7 +502,9 @@ public class GameManager : MonoBehaviour
         {
             foreach (Town town in factions[i].Towns)
             {
-                GenerateLandUnit(factions[i], town.CurHex, 4, false);
+                int id = factions[i].IsTropicalNative ? 4 : 3; //Tropical or Plain Indians
+
+                GenerateLandUnit(factions[i], town.CurHex, id, false);
             }
         }
     }

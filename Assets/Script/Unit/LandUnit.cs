@@ -50,19 +50,25 @@ public class LandUnit : Unit
 
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
-            if (this == gameMgr.CurUnit)
+            if (this == gameMgr.CurUnit && gameMgr.PlayerTurn)
                 BuildSettlement();
         }
 
         if (Keyboard.current.pKey.wasPressedThisFrame)
         {
-            if (this == gameMgr.CurUnit)
+            if (this == gameMgr.CurUnit && gameMgr.PlayerTurn)
                 ClearingLand();
         }
     }
 
     public override void PrepareMoveToHex(Hex target)
     {
+        if (unitStatus == UnitStatus.Clearing || unitStatus == UnitStatus.Building)
+        {
+            Debug.Log("Unit is busy");
+            return;
+        }
+
         if (unitStatus == UnitStatus.OnBoard)
         {
             SetUpPosition(transportShip.CurHex);
@@ -75,10 +81,28 @@ public class LandUnit : Unit
             if (unitStatus == UnitStatus.OnBoard)
                 MakeLandFall();
         }
+        else if (gameMgr.CheckIfHexHasOurShipToBoard(target))
+        {
+            base.PrepareMoveToHex(target);
+        }
         else
         {
             StayOnHex(curHex);
         }
+    }
+
+    protected override void StayOnHex(Hex hex)
+    {
+        base.StayOnHex(hex);
+
+        if (hex.HexType != HexType.Ocean)
+            return;
+
+        // Check again if this ship can be boarded
+        NavalUnit ship = gameMgr.CheckIfHexHasOurShipToBoard(hex);
+
+        if (ship != null)
+            BoardingShip(ship);
     }
 
     public void UnitInit(GameManager gameMgr, Faction fact, LandUnitData data)
@@ -117,6 +141,18 @@ public class LandUnit : Unit
         gameObject.transform.parent = faction.UnitParent.transform;
         transportShip.Passengers.Remove(this);
         transportShip = null;
+    }
+
+    public void BoardingShip(NavalUnit ship)
+    {
+        if (transportShip == ship) return;
+        else if (transportShip != null)
+         transportShip.Passengers.Remove(this);
+
+        ship.Passengers.Add(this);
+        transportShip = ship;
+        gameObject.transform.parent = ship.PassengerParent.transform;
+        unitStatus = UnitStatus.OnBoard;
     }
 
     public void ClearingLand()

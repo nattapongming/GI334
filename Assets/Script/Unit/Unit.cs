@@ -13,7 +13,9 @@ public enum UnitStatus
     OnBoard,
     Fortified,
     Clearing,
-    Building
+    Building,
+    WorkInField,
+    WorkInTown
 }
 
 public class Unit : MonoBehaviour, IPointerClickHandler
@@ -66,6 +68,7 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     
     [Header("Unit")]
     [SerializeField] protected SpriteRenderer unitSprite;
+    public SpriteRenderer UnitSprite { get { return unitSprite; } }
 
     [Header("Flag")]
     [SerializeField] protected SpriteRenderer flagSprite;
@@ -87,16 +90,29 @@ public class Unit : MonoBehaviour, IPointerClickHandler
 
     public void SetUpPosition(Hex hex)
     {
+        if (curHex != null)
+        curHex.UnitsInHex.Remove(this);             // leave the old hex
+
         curHex = hex;
+
+        if (!hex.UnitsInHex.Contains(this))
+        hex.UnitsInHex.Add(this);            // join the new hex only once
+
         curPos = hex.Pos;
     }
 
     protected virtual void StayOnHex(Hex targetHex)
     {
+        // Old Hex
+        curHex.UnitsInHex.Remove(this);
+
         isMoving = false;
         curHex = targetHex;
         targetHex = null;
         transform.position = curHex.transform.position;
+
+        // New Hex
+        curHex.UnitsInHex.Add(this);
 
         if (faction == gameMgr.PlayerFaction)
         {
@@ -166,9 +182,23 @@ public class Unit : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (faction == gameMgr.PlayerFaction)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            gameMgr.SelectPlayerUnit(this);
+            if (faction == gameMgr.PlayerFaction)
+            {
+                gameMgr.SelectPlayerUnit(this);
+            }
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (gameMgr.CheckIfHexIsAdjacent(gameMgr.CurUnit.CurHex, curHex))
+            {
+                if (faction == gameMgr.PlayerFaction) // Same faction
+                    gameMgr.CurUnit.PrepareMoveToHex(curHex);
+                else // Diff side unit
+                Debug.Log($"{gameMgr.CurUnit} Attacks {unitName}");
+            }
         }
     }
 }

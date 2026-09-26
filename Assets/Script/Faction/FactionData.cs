@@ -5,6 +5,7 @@ public class FactionData : ScriptableObject
 {
     public Nation nation;
     public bool isEuropean;
+    public bool isTropicalNative;
     public Sprite flagIcon;
     public Sprite shieldIcon;
     public Sprite unitIcon;

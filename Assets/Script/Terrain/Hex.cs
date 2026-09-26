@@ -3,6 +3,7 @@ using UnityEngine.Timeline;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public enum HexType 
 {
@@ -39,7 +40,11 @@ public class Hex : MonoBehaviour, IPointerClickHandler
 
     [Header("Basic")]
     [SerializeField] private SpriteRenderer terrainSprite;
+    public SpriteRenderer TerrainSprite { get { return terrainSprite; } }
     [SerializeField] private SpriteRenderer forestSprite;
+    public SpriteRenderer ForestSprite { get { return forestSprite; } }
+    [SerializeField] private Town town;
+    public Town Town { get {return town; } set { town = value; } }
     [SerializeField] private string hexName;
     public string HexName { get { return hexName; } set { hexName = value; } }
     [SerializeField] private int[] resourceYields;
@@ -49,7 +54,17 @@ public class Hex : MonoBehaviour, IPointerClickHandler
     private int moveCost = 1;
     public int MoveCost { get { return moveCost; } }
     
-    
+    // Units
+    [SerializeField] private List<Unit> unitsInHex = new List<Unit>();
+    public List<Unit> UnitsInHex { get { return unitsInHex; } set { unitsInHex = value; } }
+
+    [SerializeField] private Unit labor;
+    public Unit Labor { get { return labor; } set { labor = value; } }
+
+    [SerializeField]
+    private int yieldID = -1;
+    public int YieldID { get { return yieldID; } set { yieldID = value; } }
+
     // For of War
 
 
