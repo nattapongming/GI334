@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Unit curAiUnit;
     public Unit CurAiUnit { get { return curAiUnit; } set { curAiUnit = value; } }
 
+    [SerializeField] private Town curTown;
+    public Town CurTown { get { return curTown; } set { curTown = value; } }
 
     // Unit Data
 
