@@ -11,7 +11,7 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public LandUnit LandUnit { get { return landUnit; } set { landUnit = value; } }
 
     [SerializeField] private Transform iconParent;
-    public Transform IconParent { get { return IconParent; } set { IconParent = value; } }
+    public Transform IconParent { get { return iconParent; } set { iconParent = value; } }
 
     [SerializeField] private TerrainSlot terrainSlot;
 

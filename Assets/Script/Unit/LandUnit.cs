@@ -63,7 +63,9 @@ public class LandUnit : Unit
 
     public override void PrepareMoveToHex(Hex target)
     {
-        if (unitStatus == UnitStatus.Clearing || unitStatus == UnitStatus.Building)
+        if (unitStatus == UnitStatus.Clearing 
+        || unitStatus == UnitStatus.Building
+        || unitStatus == UnitStatus.WorkInField)
         {
             Debug.Log("Unit is busy");
             return;

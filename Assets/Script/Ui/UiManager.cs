@@ -12,7 +12,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private GameObject unitDragPrefab;
 
-    [SerializeField] private GameObject outSideTownParent;
+    [SerializeField] private GameObject outsideTownParent;
 
     [SerializeField] private GameObject yieldIconPrefab;
     public GameObject YieldIconPrefab { get { return yieldIconPrefab; } }
@@ -35,6 +35,14 @@ public class UiManager : MonoBehaviour
         {
             areaSlots[i].HexSlotInit(aroundHexes[i]);
         }
+    }
+
+    public void SetupCurrentTown(Hex curHex, Hex[] aroundHexes) 
+    {
+        DestoryOldUnitDrag();
+        SetUpHexSlots(curHex, aroundHexes);
+        SetupUnitDragOutSideTown(curHex);
+        SetUpUnitDragWorkingInTerrain();
     }
 
     private void DestoryOldUnitDrag()
@@ -61,7 +69,7 @@ public class UiManager : MonoBehaviour
         {
             if (unit.UnitType == UnitType.Land && unit.UnitStatus == UnitStatus.None)
             {
-                GameObject unitObj = Instantiate(unitDragPrefab, outSideTownParent.transform);
+                GameObject unitObj = Instantiate(unitDragPrefab, outsideTownParent.transform);
                 allUnitDrag.Add(unitObj);
 
                 UnitDrag unitDrag = unitObj.GetComponent<UnitDrag>();

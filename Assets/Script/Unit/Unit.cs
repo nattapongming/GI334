@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public enum UnitType
 {
@@ -84,6 +85,18 @@ public class Unit : MonoBehaviour, IPointerClickHandler
         {
             MoveToHex();
         }
+
+        if (Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            if (this == gameMgr.CurUnit 
+                && gameMgr.PlayerTurn
+                && curHex.Town != null 
+                && curHex.Town.Faction == faction)
+            {
+                gameMgr.SetupCurrentTown(curHex.Town);
+            }
+
+        }
     }
 
     // OnHex
@@ -101,13 +114,13 @@ public class Unit : MonoBehaviour, IPointerClickHandler
         curPos = hex.Pos;
     }
 
-    protected virtual void StayOnHex(Hex targetHex)
+    protected virtual void StayOnHex(Hex hex)
     {
         // Old Hex
         curHex.UnitsInHex.Remove(this);
 
         isMoving = false;
-        curHex = targetHex;
+        curHex = hex;
         targetHex = null;
         transform.position = curHex.transform.position;
 

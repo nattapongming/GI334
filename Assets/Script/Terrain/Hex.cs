@@ -123,6 +123,7 @@ public class Hex : MonoBehaviour, IPointerClickHandler
         
     }
 
+    // Hex Methods
 
     public void HextInit(int x, int y, Vector2 pos, GameManager gameManager, int i)
     {
@@ -181,8 +182,6 @@ public class Hex : MonoBehaviour, IPointerClickHandler
                 break;
         }
     }
-
-    // Hex Methods
 
     public void ClearForest()
     {

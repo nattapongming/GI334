@@ -13,7 +13,7 @@ public class OutSideSlot : MonoBehaviour, IDropHandler
 
         unitDrag.QuitOldTerrainSlot(); // old slot remove this labor
         unitDrag.LandUnit.UnitStatus = UnitStatus.None;
-
+        unitDrag.LandUnit.gameObject.SetActive(true);
         
     }
 }

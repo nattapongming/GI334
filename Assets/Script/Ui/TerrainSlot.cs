@@ -45,27 +45,25 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
 
     public void HexSlotInit(Hex hexData)
     {
-        if (hexData != null)
-        {
-            hex = hexData;
-            terrainImage.sprite = hex.TerrainSprite.sprite;
-            if (hex.HasForest)
-            {
-                forestImage.sprite = hex.ForestSprite.sprite;
-                forestImage.gameObject.SetActive(true);
-            }
+        hex = hexData;
+        gameObject.SetActive(hex != null); // hide the slot at the map edge
+        if (hex == null) return;
 
-            if (hex.HasTown)
-            {
-                townImage.sprite = hex.Town.TownSprite.sprite;
-                townImage.gameObject.SetActive(true);
-            }
-        }
+        terrainImage.sprite = hex.TerrainSprite.sprite;
+
+        forestImage.gameObject.SetActive(hex.HasForest);
+        if (hex.HasForest)
+            forestImage.sprite = hex.ForestSprite.sprite;
+
+        townImage.gameObject.SetActive(hex.HasTown);
+        if (hex.HasTown)
+            townImage.sprite = hex.Town.TownSprite.sprite;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (centerHex || hex.Labor != null) return;
+        if (centerHex || hex == null || hex.Labor != null) return;
+        if (hex.HexType == HexType.Ocean || hex.HasTown) return;
 
         GameObject unitObj = eventData.pointerDrag;
         UnitDrag unitDrag = unitObj.GetComponent<UnitDrag>();
