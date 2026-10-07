@@ -3151,7 +3151,7 @@ MonoBehaviour:
   - {fileID: 821553449}
   unitDragPrefab: {fileID: 5420902543004192053, guid: 15b8aa3fe1e6eac4484fbb263f7e1d9a, type: 3}
   outsideTownParent: {fileID: 478349189}
-  yieldIconPrefab: {fileID: 0}
+  yieldIconPrefab: {fileID: 721985026218841613, guid: 2a2ea6fda1258be4cbde8e13f6b984d9, type: 3}
   allUnitDrag: []
 --- !u!1001 &1911484500
 PrefabInstance:
