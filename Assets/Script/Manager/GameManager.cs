@@ -96,6 +96,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int nativeTownNum;
 
+    // Product
+
+    [SerializeField] private ProductData[] productDatas;
+    public ProductData[] ProductDatas { get { return productDatas; } }
 
     void Awake()
     {

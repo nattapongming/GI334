@@ -24,5 +24,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: af10ea495e4c5444483486aad9728b38, type: 3}
   - {fileID: 21300000, guid: 481a96d13d14a834aa24c21b5a12faa2, type: 3}
   - {fileID: 21300000, guid: e9169d5695cc17a4a8367b2894ff8e69, type: 3}
-  resourceYields: 
+  resourceYields: 0000000000000000000000000000000000000000000000000000000000000000
   moveCost: 1

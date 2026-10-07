@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a46d97032ad1e4e8d6b3b415ee90ba, type: 3}
   m_Name: 13_TradeGoods
   m_EditorClassIdentifier: Assembly-CSharp::ProductData
-  id: 1
-  productName: Sugar
+  id: 13
+  productName: Tradegood
   icons:
-  - {fileID: 21300000, guid: e7c00201d0042724bb7ad5f38b38f5e6, type: 3}
+  - {fileID: 21300000, guid: e519ea9d0b09a0a47a5f1f8cd458ebb8, type: 3}

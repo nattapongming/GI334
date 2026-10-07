@@ -7,6 +7,7 @@ public class HexData : ScriptableObject
     public HexType hexType;
     public Sprite[] terrainSprites;
     public Sprite[] forestSprites;
-    public int[] resourceYields;
+    // 0-food, 1-sugar, 2-tobacco, 3-cotton, 4-fur, 5-lumber, 6-ore, 7-silver
+    public int[] resourceYields = new int[8];
     public int moveCost;
 }

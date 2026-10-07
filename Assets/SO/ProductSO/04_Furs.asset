@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a46d97032ad1e4e8d6b3b415ee90ba, type: 3}
   m_Name: 04_Furs
   m_EditorClassIdentifier: Assembly-CSharp::ProductData
-  id: 1
-  productName: Sugar
+  id: 4
+  productName: Fur
   icons:
-  - {fileID: 21300000, guid: e7c00201d0042724bb7ad5f38b38f5e6, type: 3}
+  - {fileID: 21300000, guid: 2f66457dc1d196b4db8a7276b07c162a, type: 3}

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 
 public class TerrainSlot : MonoBehaviour, IDropHandler
@@ -50,6 +51,7 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         if (hex == null) return;
 
         terrainImage.sprite = hex.TerrainSprite.sprite;
+        SetupNormalYield();
 
         forestImage.gameObject.SetActive(hex.HasForest);
         if (hex.HasForest)
@@ -76,6 +78,93 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
 
         unitDrag.LandUnit.UnitStatus = UnitStatus.WorkInField;
         hex.Labor = unitDrag.LandUnit;
+
+        hex.YieldID = 0; //Food
+        AdjustActualYieldAndAccumulate(); //0 = Food
     }
 
+    public GameObject GenerateYieldIcon()
+    {
+        GameObject yieldObj = Instantiate(uiMgr.YieldIconPrefab, yieldParent);
+        Image iconImg = yieldObj.GetComponent<Image>();
+
+        if (hex.HexType == HexType.Ocean)
+            iconImg.sprite = gameMgr.ProductDatas[0].icons[1];
+        else
+            iconImg.sprite = gameMgr.ProductDatas[0].icons[0];
+
+        return yieldObj;
+    }
+
+    public void GenerateYieldIcons(int id)
+    {
+        yieldText.text = actualYield[id].ToString();
+        yieldText.gameObject.SetActive(true);
+
+        for (int i = 0; i < actualYield[id]; i++)
+        {
+            GameObject iconobj = GenerateYieldIcon();
+            yieldIconList.Add(iconobj);
+        }
+        uiMgr.SetupParentSpacing(actualYield[id], yieldParent, 64, 250);
+    }
+
+    public void ConvertNormalToActual(int id)
+    {
+        if (hex.YieldID == -1) return;
+
+        // Formula to Adjust NormalYield *
+
+        // Convert normal Yield to actual yield
+        actualYield[id] = normalYield[id];
+    }
+
+    public void AdjustActualYieldAndAccumulate()
+    {
+        ConvertNormalToActual(hex.YieldID);
+
+        // accumulate actual yield to total production
+        gameMgr.CurTown.TotalYieldThisTurn[hex.YieldID] += actualYield[hex.YieldID];
+
+        // generate all yield icons in one hex
+        GenerateYieldIcons(hex.YieldID);
+    }
+
+    public void ReduceTownYield()
+    {
+        if (hex.YieldID != -1)
+        {
+            gameMgr.CurTown.TotalYieldThisTurn[hex.YieldID] -= actualYield[hex.YieldID];
+            actualYield[hex.YieldID] = 0;
+        }
+    }
+
+    public void RemoveYieldIcons()
+    {
+        foreach (GameObject obj in yieldIconList)
+        {
+            Destroy(obj);
+        }
+        yieldIconList.Clear();
+        yieldText.gameObject.SetActive(false);
+
+        ReduceTownYield();
+    }
+
+    private void SetupNormalYield()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            normalYield[i] = hex.ResourceYields[i];
+
+            if (hex.HasForest)
+                normalYield[i] -= 2;
+
+            if (hex.HasTown)
+                normalYield[i] = Mathf.CeilToInt(normalYield[i]/2f);
+
+            if (normalYield[i] < 0)
+                normalYield[i] = 0;
+        }
+    }
 }

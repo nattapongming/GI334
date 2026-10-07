@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a46d97032ad1e4e8d6b3b415ee90ba, type: 3}
   m_Name: 08_Horses
   m_EditorClassIdentifier: Assembly-CSharp::ProductData
-  id: 1
-  productName: Sugar
+  id: 8
+  productName: Horse
   icons:
-  - {fileID: 21300000, guid: e7c00201d0042724bb7ad5f38b38f5e6, type: 3}
+  - {fileID: 21300000, guid: 0b04759efe2614d40a8fd78cacd8748c, type: 3}

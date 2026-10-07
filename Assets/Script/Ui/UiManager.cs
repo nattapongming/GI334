@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class UiManager : MonoBehaviour
     {
         centerSlot.HexSlotInit(centerHex);
 
+        // Setup auto Food production on ConterSlot
+        centerSlot.Hex.YieldID = 0; //Food
+        centerSlot.AdjustActualYieldAndAccumulate();
+
         for (int i = 0; i < areaSlots.Length; i++)
         {
             areaSlots[i].HexSlotInit(aroundHexes[i]);
@@ -43,6 +48,22 @@ public class UiManager : MonoBehaviour
         SetUpHexSlots(curHex, aroundHexes);
         SetupUnitDragOutSideTown(curHex);
         SetUpUnitDragWorkingInTerrain();
+        SetupYieldInTerrain();
+    }
+
+    public void SetupParentSpacing(int n, Transform parent, int iconWidth, int parentWidth)
+    {
+        if (n <= 1) return;
+
+        HorizontalLayoutGroup layout = parent.GetComponent<HorizontalLayoutGroup>();
+
+        int totalWidth = iconWidth * n;
+        int excessWidth = totalWidth - parentWidth;
+
+        if (excessWidth <= 0) return;
+
+        int result = excessWidth / (n - 1);
+        layout.spacing = -result;
     }
 
     private void DestoryOldUnitDrag()
@@ -98,11 +119,35 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    private void SetupYieldInTerrain()
+    {
+        foreach (TerrainSlot terrainSlot in areaSlots)
+        {
+            if (terrainSlot.Hex == null) continue;
+
+            if (terrainSlot.Hex.Labor != null && terrainSlot.Hex.YieldID != -1)
+            terrainSlot.AdjustActualYieldAndAccumulate();
+        }
+    }
+
+    public void RemoveAllYieldIcons()
+    {
+        centerSlot.RemoveYieldIcons();
+
+        foreach (TerrainSlot terrainSlot in areaSlots)
+        {
+            if (terrainSlot == null) continue;
+
+            terrainSlot.RemoveYieldIcons();
+        }
+    }
+
     public void ToggleTownPanel(bool show)
     {
         if (show == false)
         {
             DestoryOldUnitDrag();
+            RemoveAllYieldIcons();
             HideUnitWorkInTown(GameManager.instance.CurTown.CurHex);
         }
         townPanel.SetActive(show);

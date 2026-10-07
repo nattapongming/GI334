@@ -26,6 +26,18 @@ public class Town : MonoBehaviour
 
     [SerializeField] protected GameManager gameMgr;
 
+    // Product
+
+    [SerializeField] private int[] warehouse = new int [16];
+    public int[] Warehouse { get { return warehouse; } }
+
+    [SerializeField] private int[] totalYieldThisTurn = new int [16]; // Production this turn
+    public int[] TotalYieldThisTurn { get { return totalYieldThisTurn; } set { totalYieldThisTurn = value; } }
+
+    [SerializeField] private int crossNum; // no, of crosses produced in this turn
+    public int CrossNum { get { return crossNum; } set { crossNum = value; } }
+    [SerializeField] private int bellNum; // no, of bells produced in this turn
+    public int BellNum { get { return bellNum; } set { bellNum = value; } }
     public void TownInit(GameManager gameMgr, Faction fact)
     {
         this.gameMgr = gameMgr;

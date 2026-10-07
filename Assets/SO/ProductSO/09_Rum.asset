@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a46d97032ad1e4e8d6b3b415ee90ba, type: 3}
   m_Name: 09_Rum
   m_EditorClassIdentifier: Assembly-CSharp::ProductData
-  id: 1
-  productName: Sugar
+  id: 9
+  productName: Rum
   icons:
-  - {fileID: 21300000, guid: e7c00201d0042724bb7ad5f38b38f5e6, type: 3}
+  - {fileID: 21300000, guid: 59a5d6cd2deaba24683cf018f556eb7c, type: 3}

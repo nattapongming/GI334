@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a46d97032ad1e4e8d6b3b415ee90ba, type: 3}
   m_Name: 07_Silver
   m_EditorClassIdentifier: Assembly-CSharp::ProductData
-  id: 1
-  productName: Sugar
+  id: 7
+  productName: Silver
   icons:
-  - {fileID: 21300000, guid: e7c00201d0042724bb7ad5f38b38f5e6, type: 3}
+  - {fileID: 21300000, guid: 31419aa2c464c48439955f5a9fdb8cf2, type: 3}
