@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
@@ -20,6 +21,22 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> allUnitDrag;
     public List<GameObject> AllUnitDrag { get { return allUnitDrag; } set { allUnitDrag = value; } }
+
+    [SerializeField] private TerrainSlot currentSlot;
+
+    [SerializeField] private GameObject blockImage;
+
+    [SerializeField] private GameObject professionPanel;
+
+    [SerializeField] private TMP_Text labelQuestionText;
+
+    [SerializeField] private TMP_Text[] btnYieldTexts;
+    
+    [SerializeField] private Transform foodParent;
+
+    [SerializeField] private TMP_Text foodText;
+
+    [SerializeField] private List<GameObject> foodIconList = new List<GameObject>();
 
     public static UiManager instance;
 
@@ -49,6 +66,7 @@ public class UiManager : MonoBehaviour
         SetupUnitDragOutSideTown(curHex);
         SetUpUnitDragWorkingInTerrain();
         SetupYieldInTerrain();
+        UpdateTotalFoodIcons();
     }
 
     public void SetupParentSpacing(int n, Transform parent, int iconWidth, int parentWidth)
@@ -151,5 +169,80 @@ public class UiManager : MonoBehaviour
             HideUnitWorkInTown(GameManager.instance.CurTown.CurHex);
         }
         townPanel.SetActive(show);
+    }
+
+    public void UpdateLabelQuestionText()
+    {
+        if (currentSlot == null) return;
+
+        string s = string.Format("Select a profession for {0}", currentSlot.Hex.Labor.UnitName);
+        labelQuestionText.text = s;
+    }
+
+    public void UpdateButtonTextsYield()
+    {
+        if (currentSlot == null) return;
+
+        for (int i = 0; i < btnYieldTexts.Length; i++)
+        {
+            string s = string.Format("{0} {1}", 
+            currentSlot.NormalYield[i],
+            GameManager.instance.ProductDatas[i].productName);
+
+            btnYieldTexts[i].text = s;
+        }
+    }
+
+    public void SelectProfession(TerrainSlot slot)
+    {
+        currentSlot = slot;
+
+        UpdateLabelQuestionText();
+        UpdateButtonTextsYield();
+
+        blockImage.SetActive(true);
+        professionPanel.SetActive(true);
+    }
+
+    public void SelectYield(int i) // Link to Select Profession Button on UI
+    {
+        Debug.Log($"Select: {i}");
+
+        if (currentSlot != null)
+            currentSlot.SelectYield(i);
+
+        blockImage.SetActive(false);
+        professionPanel.SetActive(false);
+
+        if (currentSlot.Hex.YieldID == 0)
+            UpdateTotalFoodIcons();
+    }
+
+    public void UpdateTotalFoodIcons()
+    {
+        foreach (GameObject obj in foodIconList) Destroy(obj);
+
+        foodIconList.Clear();
+
+        foodText.text = GameManager.instance.CurTown.TotalYieldThisTurn[0].ToString();
+        foodText.gameObject.SetActive(true);
+        
+        for (int i = 0; i < GameManager.instance.CurTown.TotalYieldThisTurn[0]; i++)
+        {
+            GameObject iconobj = GenerateFoodIcon();
+            foodIconList.Add(iconobj);
+        }
+
+        SetupParentSpacing(GameManager.instance.CurTown.TotalYieldThisTurn[0], foodParent, 64, 300);
+    }
+
+    public GameObject GenerateFoodIcon()
+    {
+        GameObject foodObj = Instantiate(yieldIconPrefab, foodParent);
+        Image iconImg = foodObj.GetComponent<Image>();
+
+        iconImg.sprite = GameManager.instance.ProductDatas[0].icons[0];
+
+        return foodObj;
     }
 }

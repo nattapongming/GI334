@@ -79,14 +79,23 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         unitDrag.LandUnit.UnitStatus = UnitStatus.WorkInField;
         hex.Labor = unitDrag.LandUnit;
 
-        hex.YieldID = 0; //Food
-        AdjustActualYieldAndAccumulate(); //0 = Food
+        uiMgr.SelectProfession(this);
     }
 
-    public GameObject GenerateYieldIcon()
+    public GameObject GenerateYieldIcon(int i)
     {
         GameObject yieldObj = Instantiate(uiMgr.YieldIconPrefab, yieldParent);
         Image iconImg = yieldObj.GetComponent<Image>();
+
+        iconImg.sprite = gameMgr.ProductDatas[i].icons[0];
+
+        if (i == 0)
+        {
+            if (hex.HexType == HexType.Ocean)
+                iconImg.sprite = gameMgr.ProductDatas[0].icons[1];
+            else
+                iconImg.sprite = gameMgr.ProductDatas[0].icons[0];
+        }
 
         if (hex.HexType == HexType.Ocean)
             iconImg.sprite = gameMgr.ProductDatas[0].icons[1];
@@ -103,7 +112,7 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
 
         for (int i = 0; i < actualYield[id]; i++)
         {
-            GameObject iconobj = GenerateYieldIcon();
+            GameObject iconobj = GenerateYieldIcon(id);
             yieldIconList.Add(iconobj);
         }
         uiMgr.SetupParentSpacing(actualYield[id], yieldParent, 64, 250);
@@ -149,6 +158,9 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         yieldText.gameObject.SetActive(false);
 
         ReduceTownYield();
+
+        if (hex.YieldID == 0)
+            uiMgr.UpdateTotalFoodIcons();
     }
 
     private void SetupNormalYield()
@@ -156,6 +168,16 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         for (int i = 0; i < 8; i++)
         {
             normalYield[i] = hex.ResourceYields[i];
+
+            if (i == 4 || i == 5) // Fur or Lumber
+            {
+                if (!hex.HasForest)
+                    normalYield[i] = 0;
+            } else // Agriculture
+            {
+                if (hex.HasForest)
+                    normalYield[i] -= 2; // Reduce agriculture
+            }
 
             if (hex.HasForest)
                 normalYield[i] -= 2;
@@ -166,5 +188,11 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
             if (normalYield[i] < 0)
                 normalYield[i] = 0;
         }
+    }
+
+    public void SelectYield(int i)
+    {
+        hex.YieldID = i;
+        AdjustActualYieldAndAccumulate();
     }
 }
