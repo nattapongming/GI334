@@ -544,7 +544,8 @@ public class GameManager : MonoBehaviour
 
     public void SelectPlayerFaction(int index = 0)
     {
-        playerFaction = factions[index];
+        int i = Settings.playerNationId;
+        playerFaction = factions[i];
     }
 
     // Helper Methods
