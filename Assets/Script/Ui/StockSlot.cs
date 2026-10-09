@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.Mathematics;
+using System;
 
 public class StockSlot : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class StockSlot : MonoBehaviour
     public Image Image { get { return image; } }
 
     [SerializeField] private UiManager uiMgr;
+
+    [SerializeField] private StockDrag stockDrag;
 
     void Awake()
     {
@@ -52,6 +56,11 @@ public class StockSlot : MonoBehaviour
         productId = i;
         quantity = town.Warehouse[productId];
         stockText.text = quantity.ToString();
+
+        if (stockDrag == null)
+        {
+            stockDrag = GenerateStockDrag(productId, this);
+        }
     }
 
     public void UpdateStockText()
@@ -64,5 +73,22 @@ public class StockSlot : MonoBehaviour
         town.Warehouse[productId] += n;
         quantity = town.Warehouse[productId];
         stockText.text = quantity.ToString();
+    }
+
+    public StockDrag GenerateStockDrag(int id, StockSlot slot)
+    {
+        GameObject stockDragObj = Instantiate(uiMgr.StockDragPrefab, slot.Image.transform.position, 
+        quaternion.identity, slot.transform);
+
+        StockDrag stockDrag = stockDragObj.GetComponent<StockDrag>();
+        stockDrag.StockDragInit(slot);
+
+        return stockDrag;
+    }
+
+    public void ToggleRayCastStockDrag(bool flag)
+    {
+        if (stockDrag != null)
+            stockDrag.Image.raycastTarget = flag;
     }
 }

@@ -27,6 +27,9 @@ public class NavalUnit : Unit
     [SerializeField] private GameObject passengerParent;
     public GameObject PassengerParent { get { return passengerParent; } }
 
+    [SerializeField] private List<Cargo> cargoList = new List<Cargo>();
+    public List<Cargo> CargoList { get { return cargoList; } set { cargoList = value; } }
+
     public void UnitInit(GameManager gameMgr, Faction fact, NavalUnitData data)
     {
         this.gameMgr = gameMgr;
@@ -73,5 +76,29 @@ public class NavalUnit : Unit
             passenger.CurHex = hex;
             passenger.CurPos = hex.Pos;
         }
+    }
+
+    public int AddCargo(int id, Cargo newCargo)
+    {
+        if (cargoList.Count < cargoHoldNum)
+        {
+            cargoList.Add(new Cargo(newCargo.ProductID, newCargo.Quantity));
+            return 0;
+        } 
+        // all cargo taken, check if there is space
+        else
+        {
+            cargoList[id].Quantity += newCargo.Quantity;
+            newCargo.Quantity = 0;
+
+            if (cargoList[id].Quantity > 100)
+            {
+                int cargoLeft = cargoList[id].Quantity - 100;
+                cargoList[id].Quantity = 100;
+                return cargoLeft;
+            }
+        }
+
+        return newCargo.Quantity;
     }
 }

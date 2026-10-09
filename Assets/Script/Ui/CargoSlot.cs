@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CargoSlot : MonoBehaviour
+public class CargoSlot : MonoBehaviour, IDropHandler
 {
     [SerializeField] private NavalUnit ship;
 
@@ -17,5 +18,23 @@ public class CargoSlot : MonoBehaviour
     {
         this.ship = ship;
         this.holdId = holdId;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (ship.CargoList.Count > holdId) // there something in this hold
+        {
+            if (ship.CargoList[holdId].Quantity >= 100)
+            {
+                return;
+            }
+        }
+        GameObject obj = eventData.pointerDrag;
+        StockDrag stockDrag = obj.GetComponent<StockDrag>();
+
+        if (stockDrag == null) return;
+
+        int cargoLeft = ship.AddCargo(holdId, stockDrag.Cargo);
+        stockDrag.Cargo.Quantity = cargoLeft;
     }
 }

@@ -44,12 +44,17 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private StockSlot[] stockSlots;
 
+    [SerializeField] private CargoSlot[] cargoSlots; // ship's cargo
+
     [SerializeField] private List<GameObject> allShipIcons;
     public List<GameObject> AllShipIcons { get { return allShipIcons; } set { allShipIcons = value; } }
 
     [SerializeField] private GameObject shipInPortPrefab;
     
     [SerializeField] private GameObject portShipsParent;
+
+    [SerializeField] private GameObject stockDragPrefab; // icon dragged from town's stock
+    public GameObject StockDragPrefab { get { return stockDragPrefab; } }
 
     public static UiManager instance;
 
@@ -84,6 +89,7 @@ public class UiManager : MonoBehaviour
         UpdateTotalFoodIcons();
         SetupStockslots(curHex);
         SetupShipsInPort(curHex);
+        SetupShipsCargoSlot(curHex);
     }
 
     public void SetupParentSpacing(int n, Transform parent, int iconWidth, int parentWidth)
@@ -184,6 +190,8 @@ public class UiManager : MonoBehaviour
             DestoryOldUnitDrag();
             RemoveAllYieldIcons();
             HideUnitWorkInTown(GameManager.instance.CurTown.CurHex);
+            DestroyAllShipIcons();
+            DisableAllCargoSlots(cargoSlots);
         }
         townPanel.SetActive(show);
     }
@@ -288,6 +296,51 @@ public class UiManager : MonoBehaviour
                 ShipInPort shipIcon = unitObj.GetComponent<ShipInPort>();
                 shipIcon.UnitInit((NavalUnit)unit);
             }
+        }
+    }
+
+    public void SetupCargoSlot(NavalUnit ship)
+    {
+        for (int i = 0; i < cargoSlots.Length; i++)
+        {
+            if (i < ship.CargoHoldNum)
+            {
+                cargoSlots[i].gameObject.SetActive(true);
+                cargoSlots[i].SlotInit(ship, i);
+            }
+            else cargoSlots[i].gameObject.SetActive(false);
+        }
+    }
+
+    private void SetupShipsCargoSlot(Hex hex)
+    {
+        foreach (Unit unit in hex.UnitsInHex)
+        {
+            if (unit.UnitType == UnitType.Naval)
+            {
+                // first ship
+                NavalUnit firstShip = unit.gameObject.GetComponent<NavalUnit>();
+                SetupCargoSlot(firstShip);
+
+                break;
+            }
+        }
+    }
+
+    private void DestroyAllShipIcons()
+    {
+        foreach (GameObject obj in allShipIcons)
+        {
+            Destroy(obj);
+        }
+        allShipIcons.Clear();
+    }
+
+    private void DisableAllCargoSlots(CargoSlot[] cargoSlots)
+    {
+        foreach (CargoSlot slot in cargoSlots)
+        {
+            slot.gameObject.SetActive(false);
         }
     }
 }

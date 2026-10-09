@@ -1962,6 +1962,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CargoSlot (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2245936064462530433, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4415,6 +4419,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CargoSlot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2245936064462530433, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5546,6 +5554,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CargoSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2245936064462530433, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5636,6 +5648,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
   m_PrefabInstance: {fileID: 950699063}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &950699065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676777460527247105, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+  m_PrefabInstance: {fileID: 950699063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd933f81e0bd1ed43a35f62d89a162e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CargoSlot
+--- !u!114 &956530316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676777460527247105, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+  m_PrefabInstance: {fileID: 741130511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd933f81e0bd1ed43a35f62d89a162e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CargoSlot
 --- !u!1001 &990053740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6996,6 +7030,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5913d30158198aa468918d8768a3fca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Faction
+--- !u!114 &1321916143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676777460527247105, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+  m_PrefabInstance: {fileID: 432122479}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd933f81e0bd1ed43a35f62d89a162e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CargoSlot
 --- !u!1001 &1332017589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7262,6 +7307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CargoSlot (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2245936064462530433, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7352,6 +7401,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
   m_PrefabInstance: {fileID: 1356620921}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1356620923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676777460527247105, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+  m_PrefabInstance: {fileID: 1356620921}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd933f81e0bd1ed43a35f62d89a162e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CargoSlot
 --- !u!1001 &1403691647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7363,6 +7423,10 @@ PrefabInstance:
     - target: {fileID: 2245936064462530433, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
       propertyPath: m_Name
       value: CargoSlot (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245936064462530433, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
       propertyPath: m_Pivot.x
@@ -7454,6 +7518,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
   m_PrefabInstance: {fileID: 1403691647}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1403691649 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676777460527247105, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+  m_PrefabInstance: {fileID: 1403691647}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd933f81e0bd1ed43a35f62d89a162e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CargoSlot
 --- !u!1001 &1440596264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8471,6 +8546,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CargoSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 2245936064462530433, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8561,6 +8640,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8141135267161482366, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
   m_PrefabInstance: {fileID: 1627710247}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1627710249 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676777460527247105, guid: 66dd25d9062e2d9449a789014039356f, type: 3}
+  m_PrefabInstance: {fileID: 1627710247}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd933f81e0bd1ed43a35f62d89a162e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CargoSlot
 --- !u!1001 &1658847409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9705,9 +9795,17 @@ MonoBehaviour:
   - {fileID: 1440596266}
   - {fileID: 1272915198}
   - {fileID: 1332017590}
+  cargoSlots:
+  - {fileID: 1627710249}
+  - {fileID: 950699065}
+  - {fileID: 956530316}
+  - {fileID: 1403691649}
+  - {fileID: 1356620923}
+  - {fileID: 1321916143}
   allShipIcons: []
   shipInPortPrefab: {fileID: 4567187812197100408, guid: 4ccad0b0c3e901a4d843d6a7608fe1d9, type: 3}
   portShipsParent: {fileID: 1963171625}
+  stockDragPrefab: {fileID: 260153146128188930, guid: 7695b57250db9444488b508767fb7ec5, type: 3}
 --- !u!1001 &1889034755
 PrefabInstance:
   m_ObjectHideFlags: 0
