@@ -38,7 +38,18 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> foodIconList = new List<GameObject>();
 
+    // Ship
+
+    [SerializeField] private ShipInPort currentShipIcon; // current ship icon a player has selected
+
     [SerializeField] private StockSlot[] stockSlots;
+
+    [SerializeField] private List<GameObject> allShipIcons;
+    public List<GameObject> AllShipIcons { get { return allShipIcons; } set { allShipIcons = value; } }
+
+    [SerializeField] private GameObject shipInPortPrefab;
+    
+    [SerializeField] private GameObject portShipsParent;
 
     public static UiManager instance;
 
@@ -72,6 +83,7 @@ public class UiManager : MonoBehaviour
         SetupYieldInTerrain();
         UpdateTotalFoodIcons();
         SetupStockslots(curHex);
+        SetupShipsInPort(curHex);
     }
 
     public void SetupParentSpacing(int n, Transform parent, int iconWidth, int parentWidth)
@@ -261,6 +273,21 @@ public class UiManager : MonoBehaviour
         for (int i = 0; i < stockSlots.Length; i++)
         {
             stockSlots[i].StockInit(i, hex.Town, GameManager.instance.ProductDatas[i].icons[0]);
+        }
+    }
+
+    public void SetupShipsInPort(Hex hex)
+    {
+        foreach (Unit unit in hex.UnitsInHex)
+        {
+            if (unit.UnitType == UnitType.Naval)
+            {
+                GameObject unitObj = Instantiate(shipInPortPrefab, portShipsParent.transform);
+                allShipIcons.Add(unitObj);
+
+                ShipInPort shipIcon = unitObj.GetComponent<ShipInPort>();
+                shipIcon.UnitInit((NavalUnit)unit);
+            }
         }
     }
 }

@@ -50,6 +50,11 @@ public class NavalUnit : Unit
 
         if (target.HexType != HexType.Ocean)
         {
+            if (targetHex.HasTown)
+            {
+                // not our town
+                if (targetHex.Town.Faction != gameMgr.PlayerFaction) StayOnHex(curHex);
+            } else
             StayOnHex(curHex);
         }
     }
