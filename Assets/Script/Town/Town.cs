@@ -45,4 +45,12 @@ public class Town : MonoBehaviour
         flagSprite.sprite = fact.FlagIcon;
         townSprite.sprite = fact.TownIcon;
     }
+
+    public void AccumulateToWarehouse()
+    {
+        for (int i = 0; i < 16; i++)
+        {
+            warehouse[i] += totalYieldThisTurn[i];
+        }
+    }
 }
