@@ -46,7 +46,7 @@ public class StockSlot : MonoBehaviour
         image.sprite = s;
     }
 
-    public void stockInit(int i, Town t)
+    public void StockInit(int i, Town t)
     {
         town = t;
         productId = i;

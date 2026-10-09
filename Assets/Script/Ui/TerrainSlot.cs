@@ -97,11 +97,6 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
                 iconImg.sprite = gameMgr.ProductDatas[0].icons[0];
         }
 
-        if (hex.HexType == HexType.Ocean)
-            iconImg.sprite = gameMgr.ProductDatas[0].icons[1];
-        else
-            iconImg.sprite = gameMgr.ProductDatas[0].icons[0];
-
         return yieldObj;
     }
 
@@ -128,15 +123,19 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         actualYield[id] = normalYield[id];
     }
 
-    public void AdjustActualYieldAndAccumulate()
+    public void AdjustActualYield()
     {
         ConvertNormalToActual(hex.YieldID);
 
         // accumulate actual yield to total production
-        gameMgr.CurTown.TotalYieldThisTurn[hex.YieldID] += actualYield[hex.YieldID];
 
         // generate all yield icons in one hex
         GenerateYieldIcons(hex.YieldID);
+    }
+
+    private void Accumulate()
+    {
+        gameMgr.CurTown.TotalYieldThisTurn[hex.YieldID] += actualYield[hex.YieldID];
     }
 
     public void ReduceTownYield()
@@ -156,8 +155,6 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         }
         yieldIconList.Clear();
         yieldText.gameObject.SetActive(false);
-
-        ReduceTownYield();
 
         if (hex.YieldID == 0)
             uiMgr.UpdateTotalFoodIcons();
@@ -193,6 +190,7 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
     public void SelectYield(int i)
     {
         hex.YieldID = i;
-        AdjustActualYieldAndAccumulate();
+        AdjustActualYield();
+        Accumulate();
     }
 }

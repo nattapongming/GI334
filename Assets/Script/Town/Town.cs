@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Town : MonoBehaviour
+public class Town : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] protected Faction faction;
     public Faction Faction { get { return faction; } }
@@ -51,6 +52,29 @@ public class Town : MonoBehaviour
         for (int i = 0; i < 16; i++)
         {
             warehouse[i] += totalYieldThisTurn[i];
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (faction == gameMgr.PlayerFaction)
+                gameMgr.SetupCurrentTown(this);
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (gameMgr.CheckIfHexIsAdjacent(gameMgr.CurUnit.CurHex, curHex))
+            {
+                if (faction == gameMgr.PlayerFaction) // same faction as player
+                {
+                    gameMgr.CurUnit.PrepareMoveToHex(curHex);
+                } else
+                {
+                    
+                }
+            }
         }
     }
 }

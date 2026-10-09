@@ -38,6 +38,8 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> foodIconList = new List<GameObject>();
 
+    [SerializeField] private StockSlot[] stockSlots;
+
     public static UiManager instance;
 
     void Awake()
@@ -48,10 +50,12 @@ public class UiManager : MonoBehaviour
     public void SetUpHexSlots(Hex centerHex, Hex[] aroundHexes)
     {
         centerSlot.HexSlotInit(centerHex);
-
         // Setup auto Food production on ConterSlot
-        centerSlot.Hex.YieldID = 0; //Food
-        centerSlot.AdjustActualYieldAndAccumulate();
+
+        if (centerSlot.Hex.YieldID == -1)
+        centerSlot.SelectYield(0); // ← first open: set food + Accumulate + icons (once)
+        else
+        centerSlot.AdjustActualYield(); // ← later opens: only show icons, NO Accumulate
 
         for (int i = 0; i < areaSlots.Length; i++)
         {
@@ -67,6 +71,7 @@ public class UiManager : MonoBehaviour
         SetUpUnitDragWorkingInTerrain();
         SetupYieldInTerrain();
         UpdateTotalFoodIcons();
+        SetupStockslots(curHex);
     }
 
     public void SetupParentSpacing(int n, Transform parent, int iconWidth, int parentWidth)
@@ -144,7 +149,7 @@ public class UiManager : MonoBehaviour
             if (terrainSlot.Hex == null) continue;
 
             if (terrainSlot.Hex.Labor != null && terrainSlot.Hex.YieldID != -1)
-            terrainSlot.AdjustActualYieldAndAccumulate();
+            terrainSlot.AdjustActualYield();
         }
     }
 
@@ -154,7 +159,7 @@ public class UiManager : MonoBehaviour
 
         foreach (TerrainSlot terrainSlot in areaSlots)
         {
-            if (terrainSlot == null) continue;
+            if (terrainSlot.Hex == null) continue;
 
             terrainSlot.RemoveYieldIcons();
         }
@@ -244,5 +249,18 @@ public class UiManager : MonoBehaviour
         iconImg.sprite = GameManager.instance.ProductDatas[0].icons[0];
 
         return foodObj;
+    }
+
+    public void CheckActiveUIPanel()
+    {
+        if (townPanel.activeInHierarchy) ToggleTownPanel(false);
+    }
+
+    public void SetupStockslots(Hex hex)
+    {
+        for (int i = 0; i < stockSlots.Length; i++)
+        {
+            stockSlots[i].StockInit(i, hex.Town, GameManager.instance.ProductDatas[i].icons[0]);
+        }
     }
 }

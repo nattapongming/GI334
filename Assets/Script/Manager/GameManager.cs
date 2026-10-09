@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -189,9 +190,18 @@ public class GameManager : MonoBehaviour
         if (curUnit != null)
             curUnit.ToggleBorder(false, Color.green);
 
-            Debug.Log("EndTurn");
-            playerTurn = false;
-            AiManager.instance.StartAiTurn();
+        UiManager.instance.CheckActiveUIPanel();
+
+        Debug.Log("EndTurn");
+        playerTurn = false;
+        AiManager.instance.StartAiTurn();
+    }
+
+    public void StartNewTuen()
+    {
+        playerTurn = true;
+        SelectPlayerFirstUnit();
+        AccumulateStockAllTowns();
     }
 
     // Unit method
@@ -279,11 +289,16 @@ public class GameManager : MonoBehaviour
                 curUnit.gameObject.SetActive(false);
         }
 
-        unit.gameObject.SetActive(true);
-        unit.SetUnitToFrontLayerOrder();
-
+        if (unit.UnitStatus != UnitStatus.WorkInField)
+        {
+            unit.gameObject.SetActive(true);
+            unit.SetUnitToFrontLayerOrder();
+        }
+        
         curUnit = unit;
+        CameraController.instance.MoveCamera(curUnit.transform.position);
 
+        HideOtherLandUnits(curUnit);
         FocusPlayerUnit(curUnit);
     }
 
@@ -294,6 +309,17 @@ public class GameManager : MonoBehaviour
             Unit firstUnit = playerFaction.Units[0];
             SelectPlayerUnit(firstUnit);
             CameraController.instance.MoveCamera(firstUnit.CurPos);
+        }
+    }
+
+    public void HideOtherLandUnits(Unit thisUnit)
+    {
+        foreach (Unit other in thisUnit.CurHex.UnitsInHex)
+        {
+            if (other.UnitType == UnitType.Land && other.Faction == playerFaction)
+            {
+                if (other != thisUnit) other.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -583,6 +609,18 @@ public class GameManager : MonoBehaviour
             i = 0;
 
         SelectPlayerUnit(playerFaction.Units[i]);
-        CameraController.instance.MoveCamera(curUnit.transform.position);
+    }
+
+    // Resource Medthod
+
+    public void AccumulateStockAllTowns()
+    {
+        for (int i = 0; i < factions.Length; i++)
+        {
+            for (int j = 0; j < factions[i].Towns.Count; j++)
+            {
+                factions[i].Towns[j].AccumulateToWarehouse();
+            }
+        }
     }
 }

@@ -53,8 +53,7 @@ public class AiManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        GameManager.instance.PlayerTurn = true;
-        GameManager.instance.SelectPlayerFirstUnit();
+        GameManager.instance.StartNewTuen();
     }
 
     public void StartAiTurn()
