@@ -11,6 +11,8 @@ public class OutSideSlot : MonoBehaviour, IDropHandler
         UnitDrag unitDrag = unitObj.GetComponent<UnitDrag>();
         unitDrag.IconParent = transform;
 
+        if (unitDrag == null) return;
+
         unitDrag.QuitOldTerrainSlot(); // old slot remove this labor
         unitDrag.LandUnit.UnitStatus = UnitStatus.None;
         unitDrag.LandUnit.gameObject.SetActive(true);

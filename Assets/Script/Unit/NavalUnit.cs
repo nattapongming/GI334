@@ -80,24 +80,32 @@ public class NavalUnit : Unit
 
     public int AddCargo(int id, Cargo newCargo)
     {
-        if (cargoList.Count < cargoHoldNum)
+        if (newCargo.Quantity <= 0) return 0;                 // nothing to load
+        
+        // hold already has cargo → only stack the SAME product
+        if (id < cargoList.Count)
         {
-            cargoList.Add(new Cargo(newCargo.ProductID, newCargo.Quantity));
-            return 0;
-        } 
-        // all cargo taken, check if there is space
-        else
-        {
+            if (cargoList[id].ProductID != newCargo.ProductID)
+                return newCargo.Quantity;                     // reject, all goes back to town
+
             cargoList[id].Quantity += newCargo.Quantity;
-            newCargo.Quantity = 0;
 
             if (cargoList[id].Quantity > 100)
             {
                 int cargoLeft = cargoList[id].Quantity - 100;
                 cargoList[id].Quantity = 100;
-                return cargoLeft;
+                return cargoLeft;                             // extra goes back to town
             }
+            return 0;
         }
+
+        // empty hold → add a new one (if the ship has space)
+        if (cargoList.Count < cargoHoldNum)
+        {
+            cargoList.Add(new Cargo(newCargo.ProductID, newCargo.Quantity));
+            return 0;
+        }
+
 
         return newCargo.Quantity;
     }

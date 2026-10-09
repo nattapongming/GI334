@@ -56,6 +56,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject stockDragPrefab; // icon dragged from town's stock
     public GameObject StockDragPrefab { get { return stockDragPrefab; } }
 
+    [SerializeField] private GameObject cargoDragPrefab; // icon dragged from ship's cargo
+
     public static UiManager instance;
 
     void Awake()
@@ -192,6 +194,7 @@ public class UiManager : MonoBehaviour
             HideUnitWorkInTown(GameManager.instance.CurTown.CurHex);
             DestroyAllShipIcons();
             DisableAllCargoSlots(cargoSlots);
+            DeleteAllCargoDragsInSlots();
         }
         townPanel.SetActive(show);
     }
@@ -310,6 +313,7 @@ public class UiManager : MonoBehaviour
             }
             else cargoSlots[i].gameObject.SetActive(false);
         }
+        UpdateCargoSlots(ship);
     }
 
     private void SetupShipsCargoSlot(Hex hex)
@@ -341,6 +345,46 @@ public class UiManager : MonoBehaviour
         foreach (CargoSlot slot in cargoSlots)
         {
             slot.gameObject.SetActive(false);
+        }
+    }
+
+    private void DeleteAllCargoDragsInSlots()
+    {
+        foreach (CargoSlot slot in cargoSlots)
+        {
+            if (slot.CargoDrag != null)
+            {
+                Destroy(slot.CargoDrag.gameObject);
+                slot.CargoDrag = null;
+            }
+        }
+    }
+
+    public void UpdateCargoSlots(NavalUnit ship) // Update icon in ship's hold
+    {
+        DeleteAllCargoDragsInSlots();
+
+        for (int i = 0; i < ship.CargoList.Count; i++)
+        {
+            GameObject cargoDragObj = Instantiate(cargoDragPrefab, 
+            cargoSlots[i].transform.position,
+            Quaternion.identity, cargoSlots[i].transform);
+
+            CargoDrag cargoDrag = cargoDragObj.GetComponent<CargoDrag>();
+            cargoSlots[i].CargoDrag = cargoDrag;
+
+            int productId = ship.CargoList[i].ProductID;
+            Sprite icon = GameManager.instance.ProductDatas[productId].icons[0];
+
+            cargoDrag.CargoDragInit(ship, icon, i);
+        }
+    }
+
+    public void ToggleStockDragRayCast(bool flag)
+    {
+        foreach (StockSlot slot in stockSlots)
+        {
+            slot.ToggleRayCastStockDrag(flag);
         }
     }
 }
