@@ -64,17 +64,27 @@ public class NavalUnit : Unit
 
     protected override void StayOnHex(Hex hex)
     {
+        Hex oldHex = curHex;
+
         base.StayOnHex(hex);
 
-        foreach (LandUnit passenger in passengers)
+        foreach (LandUnit unit in passengers)
         {
             // remove passenger from old ocean hex
-            passenger.CurHex.UnitsInHex.Remove(passenger);
+            unit.CurHex.UnitsInHex.Remove(unit);
             // Add passenger to new ocean hex
-            hex.UnitsInHex.Add(passenger);
+            hex.UnitsInHex.Add(unit);
 
-            passenger.CurHex = hex;
-            passenger.CurPos = hex.Pos;
+            unit.CurHex = hex;
+            unit.CurPos = hex.Pos;
+        }
+        //gameMgr.CheckShipToEurope();
+        if (faction == gameMgr.PlayerFaction    // only YOUR ships (no pop-up on AI turn)
+        && oldHex != hex                    // only if it really moved (not "clicked land")
+        && hex.X == GameManager.WIDTH - 1)  // reached the Europe edge
+        {
+            CameraController.instance.MoveCamera(CurPos);
+            EuropeManager.instance.QuestionGoToEurope(this);
         }
     }
 

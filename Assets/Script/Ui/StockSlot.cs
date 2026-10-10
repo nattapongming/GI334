@@ -24,9 +24,15 @@ public class StockSlot : MonoBehaviour, IDropHandler
 
     [SerializeField] private StockDrag stockDrag;
 
+    [SerializeField] private GameManager gameMgr;
+
+    [SerializeField] private EuropeManager EUmgr;
+
     void Awake()
     {
+        gameMgr = GameManager.instance;
         uiMgr = UiManager.instance;
+        EUmgr = EuropeManager.instance;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,13 +47,18 @@ public class StockSlot : MonoBehaviour, IDropHandler
         
     }
 
-    public void StockInit(int i, Town t, Sprite s)
+    public void StockInit(int i, Town t, bool Europe)
     {
         town = t;
         productId = i;
         quantity = town.Warehouse[productId];
         stockText.text = quantity.ToString();
-        image.sprite = s;
+        image.sprite = gameMgr.ProductDatas[i].icons[0];
+
+        if (Europe)
+            stockText.text = $"{EUmgr.EuropeStocks[i].BidPrice}/{EUmgr.EuropeStocks[i].AskPrice}";
+        else
+            stockText.text = quantity.ToString();
 
         if (stockDrag == null)
         stockDrag = GenerateStockDrag(productId, this);
@@ -73,9 +84,21 @@ public class StockSlot : MonoBehaviour, IDropHandler
 
     public void UpdateQuantityStock(int n)
     {
-        town.Warehouse[productId] += n;
-        quantity = town.Warehouse[productId];
-        stockText.text = quantity.ToString();
+        if (uiMgr.InEurope)
+        {
+            EUmgr.EuropeStocks[productId].Quantity += n;
+            quantity = EUmgr.EuropeStocks[productId].Quantity;
+
+            stockText.text = $"{EUmgr.EuropeStocks[productId].BidPrice}/{EUmgr.EuropeStocks[productId].AskPrice}";
+
+        } 
+        else
+        {
+            town.Warehouse[productId] += n;
+            quantity = town.Warehouse[productId];
+            stockText.text = quantity.ToString();
+        }
+        
     }
 
     public StockDrag GenerateStockDrag(int id, StockSlot slot)
@@ -108,10 +131,37 @@ public class StockSlot : MonoBehaviour, IDropHandler
         cargoDrag.Cargo.Quantity = 0;
         
         cargoDrag.RemoveCargoListFromShip();
-        uiMgr.UpdateCargoSlots(cargoDrag.Ship);
 
-        Debug.Log("CargoDrag - On Drop - On StockSlot");
+        if (uiMgr.InEurope)
+        {
+            uiMgr.UpdateCargoSlots(cargoDrag.Ship, uiMgr.CargoSLotEurope);
+            // Sell to market
+
+            gameMgr.PlayerFaction.Money += 
+            cargoDrag.Cargo.Quantity * EUmgr.EuropeStocks[productId].BidPrice;
+        }
+        else
+        {
+            uiMgr.UpdateCargoSlots(cargoDrag.Ship, uiMgr.CargoSlots);
+        }
+
+        //Debug.Log("CargoDrag - On Drop - On StockSlot");
         uiMgr.ToggleStockDragRayCast(true);
 
+    }
+
+    public void StockInitEurope(int i)
+    {
+        productId = i;
+        image.sprite = gameMgr.ProductDatas[i].icons[0];
+
+        quantity = EUmgr.EuropeStocks[productId].Quantity;
+        stockText.text =
+        $"{EUmgr.EuropeStocks[productId].BidPrice}/{EUmgr.EuropeStocks[productId].AskPrice}";
+
+        if (stockDrag == null)
+        {
+            stockDrag = GenerateStockDrag(productId, this);
+        }
     }
 }

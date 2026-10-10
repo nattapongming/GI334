@@ -46,7 +46,6 @@ public class Faction : MonoBehaviour
     [SerializeField] private Sprite townIcon;
     public Sprite TownIcon { get { return townIcon; } }
 
-
     // Town and Unit
 
     [SerializeField] private List<Town> towns = new List<Town>();
@@ -54,6 +53,11 @@ public class Faction : MonoBehaviour
 
     [SerializeField] private List<Unit> units = new List<Unit>();
     public List<Unit> Units { get {return units; } set { units = value; } }
+
+    // Currency
+
+    [SerializeField] private int money = 1000;
+    public int Money { get { return money; } set { money = value; } }
 
     public void FactionInit(FactionData data)
     {

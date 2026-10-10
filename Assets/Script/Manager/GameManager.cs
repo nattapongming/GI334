@@ -102,6 +102,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ProductData[] productDatas;
     public ProductData[] ProductDatas { get { return productDatas; } }
 
+    // Misc
+
+    [SerializeField] private int year = 1600;
+    public int Year { get { return year; } set { year = value; } }
+
     void Awake()
     {
         if (instance == null)
@@ -141,6 +146,14 @@ public class GameManager : MonoBehaviour
 
         if (Keyboard.current.backspaceKey.wasPressedThisFrame)
             EndTurn();
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+            EuropePanel();
+    }
+
+    public void EuropePanel()
+    {
+        UiManager.instance.CheckEuropePanel();   
     }
 
     // Hex method
@@ -191,6 +204,7 @@ public class GameManager : MonoBehaviour
             curUnit.ToggleBorder(false, Color.green);
 
         UiManager.instance.CheckActiveUIPanel();
+        EuropeManager.instance.UpdateShipInTransitTurn();
 
         Debug.Log("EndTurn");
         playerTurn = false;
@@ -222,6 +236,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Unit unit in faction.Units)
         {
+            if (unit.CurHex == null) continue; 
             ClearDarkFogAroundUnit(unit);
         }
     }
@@ -289,7 +304,7 @@ public class GameManager : MonoBehaviour
                 curUnit.gameObject.SetActive(false);
         }
 
-        if (unit.UnitStatus != UnitStatus.WorkInField)
+        if (unit.UnitType == UnitType.Land && unit.UnitStatus != UnitStatus.WorkInField)
         {
             unit.gameObject.SetActive(true);
             unit.SetUnitToFrontLayerOrder();
@@ -314,6 +329,8 @@ public class GameManager : MonoBehaviour
 
     public void HideOtherLandUnits(Unit thisUnit)
     {
+        if (thisUnit.CurHex == null) return;
+
         foreach (Unit other in thisUnit.CurHex.UnitsInHex)
         {
             if (other.UnitType == UnitType.Land && other.Faction == playerFaction)
@@ -620,6 +637,25 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < factions[i].Towns.Count; j++)
             {
                 factions[i].Towns[j].AccumulateToWarehouse();
+            }
+        }
+    }
+
+    // Ship to Europe
+
+    public void CheckShipToEurope()
+    {
+        foreach (Unit unit in playerFaction.Units)
+        {
+            if (unit.UnitType == UnitType.Naval && unit.CurHex != null)
+            {
+                if (unit.CurHex.X == WIDTH - 1)
+                {
+                    NavalUnit ship = (NavalUnit)unit;
+                    CameraController.instance.MoveCamera(unit.CurPos);
+
+                    EuropeManager.instance.QuestionGoToEurope(ship);
+                }
             }
         }
     }

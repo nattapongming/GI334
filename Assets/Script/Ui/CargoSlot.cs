@@ -12,9 +12,15 @@ public class CargoSlot : MonoBehaviour, IDropHandler
     [SerializeField] private CargoDrag cargoDrag;
     public CargoDrag CargoDrag { get { return cargoDrag; } set { cargoDrag = value; } }
 
+    [SerializeField] private GameManager gameMgr;
+
+    [SerializeField] private EuropeManager EUMgr;
+
     private void Awake()
     {
+        gameMgr = GameManager.instance;
         uiMgr = UiManager.instance;
+        EUMgr = EuropeManager.instance;
     }
 
     public void SlotInit(NavalUnit ship, int holdId)
@@ -38,8 +44,17 @@ public class CargoSlot : MonoBehaviour, IDropHandler
         if (stockDrag == null) return;
 
         int cargoLeft = ship.AddCargo(holdId, stockDrag.Cargo);
+
+        if (uiMgr.InEurope)
+        {
+            uiMgr.UpdateCargoSlots(ship, uiMgr.CargoSLotEurope);
+            // Buy from market
+            gameMgr.PlayerFaction.Money -=
+                stockDrag.Cargo.Quantity * EUMgr.EuropeStocks[stockDrag.Cargo.ProductID].AskPrice;
+        }
+        else uiMgr.UpdateCargoSlots(ship, uiMgr.CargoSlots);
+
         stockDrag.Cargo.Quantity = cargoLeft;
-        uiMgr.UpdateCargoSlots(ship);
     }
 
 }
