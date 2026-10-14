@@ -39,4 +39,13 @@ public class DialogManager : MonoBehaviour
         dialogs[1].gameObject.SetActive(flag);
             
     }
+
+    public void ToggleNavalDialog(bool flag)
+    {
+        if (flag)
+            dialogs[1].NotiText.text = 
+            ($"Year: {GameManager.instance.Year}\nAI is moving...");
+
+        dialogs[1].gameObject.SetActive(flag);
+    }
 }

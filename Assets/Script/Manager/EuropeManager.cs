@@ -113,6 +113,26 @@ public class EuropeManager : MonoBehaviour
                 shipsToEurope.Remove(shipReachEU);
         }
         shipsReachEurope.Clear();
+
+        // From Europe
+        List<ShipInTransit> shipsReachNewWorld = new List<ShipInTransit>();
+
+        foreach (ShipInTransit shipInTransit in shipsFromEurope)
+        {
+        if (shipInTransit.TurnLeft <= 1)
+            shipsReachNewWorld.Add(shipInTransit);
+        else
+            shipInTransit.TurnLeft--;
+        }
+
+        // Remove from Transit and place on the map
+        foreach (ShipInTransit shipReachNW in shipsReachNewWorld)
+        {
+            shipsFromEurope.Remove(shipReachNW);
+            GameManager.instance.CheckToGenerateShipFromEurope(shipReachNW.Ship);
+        }
+
+        UiManager.instance.RefreshEuropePanel();
     }
 
     public void UpdateEuropePrice(int i, int increment)

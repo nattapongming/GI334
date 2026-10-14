@@ -204,7 +204,6 @@ public class GameManager : MonoBehaviour
             curUnit.ToggleBorder(false, Color.green);
 
         UiManager.instance.CheckActiveUIPanel();
-        EuropeManager.instance.UpdateShipInTransitTurn();
 
         Debug.Log("EndTurn");
         playerTurn = false;
@@ -216,6 +215,7 @@ public class GameManager : MonoBehaviour
         playerTurn = true;
         SelectPlayerFirstUnit();
         AccumulateStockAllTowns();
+        EuropeManager.instance.UpdateShipInTransitTurn();
     }
 
     // Unit method

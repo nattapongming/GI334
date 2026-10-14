@@ -258,6 +258,20 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    public void RefreshEuropePanel()
+    {
+        if (!inEurope) return;   // panel closed → nothing to update
+
+        DestroyAllShipsEuropeIcons();
+        DisableAllCargoSlots(cargoSlotsEurope);
+        DeleteAllCargoDragsInSlots(cargoSlotsEurope);
+
+        SetupShipsToEurope(EuropeManager.instance.ShipsToEurope);
+        SetupShipsFromEurope(EuropeManager.instance.ShipsFromEurope);
+        SetupShipsInEurope(EuropeManager.instance.ShipsInEurope);
+        SetupShipsCargoSlotEurope(EuropeManager.instance.ShipsInEurope);
+    }
+
     public void UpdateLabelQuestionText()
     {
         if (currentSlot == null) return;
