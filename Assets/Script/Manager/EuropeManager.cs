@@ -119,4 +119,16 @@ public class EuropeManager : MonoBehaviour
     {
         europeStocks[i].UpdatePrice(increment);
     }
+
+    public void AllowToGoToNewWorld(NavalUnit ship)
+    {
+        if (!shipsInEurope.Contains(ship)) return;   // only ships docked in Europe may leave
+
+        ShipInTransit shipInTransit = new ShipInTransit(ship, EUROPE_DISTANCE);
+
+        shipsFromEurope.Add(shipInTransit);
+        shipsInEurope.Remove(ship);
+
+        UiManager.instance.UpdateIconsFromEuropeToNewWorld();
+    }
 }

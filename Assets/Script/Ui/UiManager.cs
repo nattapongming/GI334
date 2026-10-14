@@ -250,6 +250,7 @@ public class UiManager : MonoBehaviour
             inEurope = true;
 
             SetupShipsToEurope(EuropeManager.instance.ShipsToEurope);
+            SetupShipsFromEurope(EuropeManager.instance.ShipsFromEurope);
             SetupShipsInEurope(EuropeManager.instance.ShipsInEurope);
             SetupShipsCargoSlotEurope(EuropeManager.instance.ShipsInEurope);
             SetupStockSlotEurope();
@@ -358,7 +359,7 @@ public class UiManager : MonoBehaviour
                 allShipIcons.Add(unitObj);
 
                 ShipInPort shipIcon = unitObj.GetComponent<ShipInPort>();
-                shipIcon.UnitInit((NavalUnit)unit);
+                shipIcon.UnitInit((NavalUnit)unit, false);
             }
         }
     }
@@ -465,7 +466,7 @@ public class UiManager : MonoBehaviour
             allShipToEuropeIcons.Add(unitObj);
 
             ShipInPort shipIcon = unitObj.GetComponent<ShipInPort>();
-            shipIcon.UnitInit(shipInTransit.Ship);
+            shipIcon.UnitInit(shipInTransit.Ship, false);
             shipIcon.UpdateTurnText(shipInTransit.TurnLeft);
         }
     }
@@ -495,7 +496,7 @@ public class UiManager : MonoBehaviour
                 allShipInEuropeIcons.Add(unitObj);
 
                 ShipInPort shipIcon = unitObj.GetComponent<ShipInPort>();
-                shipIcon.UnitInit((NavalUnit)unit);
+                shipIcon.UnitInit((NavalUnit)unit, true);
             }
         }
     }
@@ -514,6 +515,33 @@ public class UiManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void SetupShipsFromEurope(List<ShipInTransit> shipToEU)
+    {
+        foreach (ShipInTransit shipInTransit in shipToEU)
+        {
+            GameObject unitObj = Instantiate(shipInPortPrefab,
+            fromEuropeShipsParent.transform);
+            allShipFromEuropeIcons.Add(unitObj);
+
+            ShipInPort shipIcon = unitObj.GetComponent<ShipInPort>();
+            shipIcon.UnitInit(shipInTransit.Ship, false);
+            shipIcon.UpdateTurnText(shipInTransit.TurnLeft);
+        }
+    }
+
+    public void UpdateIconsFromEuropeToNewWorld()
+    {
+        DestroyShipIcons(allShipFromEuropeIcons);
+        SetupShipsFromEurope(EuropeManager.instance.ShipsFromEurope);
+
+        DestroyShipIcons(allShipInEuropeIcons);
+        SetupShipsInEurope(EuropeManager.instance.ShipsInEurope);
+        
+        DeleteAllCargoDragsInSlots(cargoSlotsEurope);
+        DisableAllCargoSlots(cargoSlotsEurope);
+        SetupShipsCargoSlotEurope(EuropeManager.instance.ShipsInEurope);
     }
 
     public void SetupStockSlotEurope()

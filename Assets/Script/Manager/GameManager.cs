@@ -342,10 +342,10 @@ public class GameManager : MonoBehaviour
 
     // Generate Methods
 
-    private void GenerateEuroShip(Faction fact)
+    private void GenerateEuroShip(Faction fact, int yPos)
     {
-        int x = WIDTH - 1; // near right edge of the map
-        int y = Random.Range(0,HEIGHT);
+        int x = WIDTH - 2; // near right edge of the map
+        int y = yPos;
         Hex hex = allHexes[x,y];
 
         GameObject obj = Instantiate(navelUnitPrefab, hex.Pos, Quaternion.identity, fact.UnitParent);
@@ -393,10 +393,42 @@ public class GameManager : MonoBehaviour
 
     private void GenerateAllEuropeanShips()
     {
+        int interval = HEIGHT / 5;
+        int n = HEIGHT;
+
+        List<int> spots = new List<int>();
+
         for (int i = 0; i < 5; i++)
         {
-            GenerateEuroShip(factions[i]);
+            n -= Random.Range(5, interval);
+            spots.Add(n);
         }
+
+        for (int i = 0; i < 5; i++)
+        {
+            int index = Random.Range(0, spots.Count);
+            int yPosition = spots[index];
+            spots.RemoveAt(index);
+
+            GenerateEuroShip(factions[i], yPosition);
+        }
+    }
+
+    public void CheckToGenerateShipFromEurope(NavalUnit ship)
+    {
+        int y = Random.Range(0, HEIGHT);
+
+        if (!playerFaction.Units.Contains(ship))
+        {
+            Debug.Log("New Ship");
+            GenerateEuroShip(playerFaction, y);
+        }
+        else
+        {
+            Debug.Log("Old Ship");
+            MoveEuropeanShip(ship);
+        }
+
     }
 
     private void GenerateAllHexes()
@@ -658,5 +690,23 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void MoveEuropeanShip(NavalUnit ship)
+    {
+        int x = WIDTH - 2; // near right edge of a map
+        int y = Random.Range(0, HEIGHT);
+        Hex hex = allHexes[x, y];
+
+        Debug.Log($"Position: {hex.Pos}");
+
+        ship.SetUpPosition(hex);
+        ship.gameObject.SetActive(true);
+        ship.gameObject.transform.position = ship.CurPos;
+
+        ClearDarkFogAroundUnit(ship);
+        SelectPlayerUnit(ship);
+        CameraController.instance.MoveCamera(ship.CurPos);
+        ship.Visible = true;
     }
 }

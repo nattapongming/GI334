@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ShipInTransit : MonoBehaviour
+public class ShipInTransit 
 {
     [SerializeField] private NavalUnit ship;
     public NavalUnit Ship { get { return ship; } set { ship = value; } }
