@@ -125,6 +125,7 @@ public class UiManager : MonoBehaviour
         SetupStockslots(curHex);
         SetupShipsInPort(curHex);
         SetupShipsCargoSlot(curHex);
+        UpdateMoneyText();
     }
 
     public void SetupParentSpacing(int n, Transform parent, int iconWidth, int parentWidth)
@@ -237,6 +238,8 @@ public class UiManager : MonoBehaviour
         if (flag == false)
         {
             DestroyAllShipsEuropeIcons();
+            DisableAllCargoSlots(cargoSlotsEurope);
+            DeleteAllCargoDragsInSlots(cargoSlotsEurope);
 
             europePanel.SetActive(false);
             inEurope = false;
@@ -250,6 +253,7 @@ public class UiManager : MonoBehaviour
             SetupShipsInEurope(EuropeManager.instance.ShipsInEurope);
             SetupShipsCargoSlotEurope(EuropeManager.instance.ShipsInEurope);
             SetupStockSlotEurope();
+            UpdateMoneyEuropeText();
         }
     }
 
@@ -359,18 +363,18 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public void SetupCargoSlot(NavalUnit ship, CargoSlot[] cargoSlot)
+    public void SetupCargoSlot(NavalUnit ship, CargoSlot[] targetSlot)
     {
-        for (int i = 0; i < cargoSlots.Length; i++)
+        for (int i = 0; i < targetSlot.Length; i++)
         {
             if (i < ship.CargoHoldNum)
             {
-                cargoSlots[i].gameObject.SetActive(true);
-                cargoSlots[i].SlotInit(ship, i);
+                targetSlot[i].gameObject.SetActive(true);
+                targetSlot[i].SlotInit(ship, i);
             }
-            else cargoSlots[i].gameObject.SetActive(false);
+            else targetSlot[i].gameObject.SetActive(false);
         }
-        UpdateCargoSlots(ship, cargoSlot);
+        UpdateCargoSlots(ship, targetSlot);
     }
 
     private void SetupShipsCargoSlot(Hex hex)
@@ -382,7 +386,6 @@ public class UiManager : MonoBehaviour
                 // first ship
                 NavalUnit firstShip = unit.gameObject.GetComponent<NavalUnit>();
                 SetupCargoSlot(firstShip, cargoSlots);
-                UpdateCargoSlots(firstShip, cargoSlots);
 
                 break;
             }
@@ -507,7 +510,6 @@ public class UiManager : MonoBehaviour
                 NavalUnit firstShip = 
                 unit.gameObject.GetComponent<NavalUnit>();
                 SetupCargoSlot(firstShip, cargoSlotsEurope);
-                UpdateCargoSlots(firstShip, cargoSlotsEurope);
 
                 break;
             }
@@ -520,5 +522,17 @@ public class UiManager : MonoBehaviour
         {
             stockSlotsEurope[i].StockInitEurope(i);
         }
+    }
+
+    // Money Medthod
+
+    public void UpdateMoneyText()
+    {
+        moneyText.text = $"{GameManager.instance.PlayerFaction.Money}";
+    }
+
+    public void UpdateMoneyEuropeText()
+    {
+        moneyEuropeText.text = $"{GameManager.instance.PlayerFaction.Money}";
     }
 }

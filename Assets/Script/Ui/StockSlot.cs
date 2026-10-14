@@ -127,9 +127,9 @@ public class StockSlot : MonoBehaviour, IDropHandler
 
         if (cargoDrag.Cargo.ProductID != productId) return;
 
-        UpdateQuantityStock(cargoDrag.Cargo.Quantity);
+        int amount = cargoDrag.Cargo.Quantity;
+        UpdateQuantityStock(amount);
         cargoDrag.Cargo.Quantity = 0;
-        
         cargoDrag.RemoveCargoListFromShip();
 
         if (uiMgr.InEurope)
@@ -138,7 +138,9 @@ public class StockSlot : MonoBehaviour, IDropHandler
             // Sell to market
 
             gameMgr.PlayerFaction.Money += 
-            cargoDrag.Cargo.Quantity * EUmgr.EuropeStocks[productId].BidPrice;
+            amount * EUmgr.EuropeStocks[productId].BidPrice;
+
+            uiMgr.UpdateMoneyEuropeText();
         }
         else
         {

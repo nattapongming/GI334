@@ -44,13 +44,15 @@ public class CargoSlot : MonoBehaviour, IDropHandler
         if (stockDrag == null) return;
 
         int cargoLeft = ship.AddCargo(holdId, stockDrag.Cargo);
+        int loaded = stockDrag.Cargo.Quantity - cargoLeft;     // ← what really went on the ship
 
         if (uiMgr.InEurope)
         {
             uiMgr.UpdateCargoSlots(ship, uiMgr.CargoSLotEurope);
             // Buy from market
             gameMgr.PlayerFaction.Money -=
-                stockDrag.Cargo.Quantity * EUMgr.EuropeStocks[stockDrag.Cargo.ProductID].AskPrice;
+                loaded * EUMgr.EuropeStocks[stockDrag.Cargo.ProductID].AskPrice; // ← pay only for that
+            uiMgr.UpdateMoneyEuropeText();
         }
         else uiMgr.UpdateCargoSlots(ship, uiMgr.CargoSlots);
 
