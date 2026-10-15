@@ -44,4 +44,22 @@ public class DialogManager : MonoBehaviour
     {
         dialogs[0].gameObject.SetActive(flag);
     }
+
+    // Combat
+
+    public void ShowCombatResult(Unit winner, Unit loser)
+    {
+        dialogs[0].gameObject.SetActive(true);
+        dialogs[0].DialogCombatResultInit(winner, loser);
+    }
+
+    public void CombatAnalysisInit(Unit ourUnit, Unit enemyUnit)
+    {
+        dialogs[9].DialogCombatAnalysisInit(ourUnit, enemyUnit);
+    }
+
+    public void ToggleCombatPanel(bool flag)
+    {
+        dialogs[9].gameObject.SetActive(flag);
+    }
 }

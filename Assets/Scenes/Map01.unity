@@ -368,6 +368,19 @@ MonoBehaviour:
   notiText: {fileID: 178786806}
   yesText: {fileID: 701774889}
   noText: {fileID: 1479967985}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &24751205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5389,9 +5402,9 @@ RectTransform:
   - {fileID: 227833519}
   m_Father: {fileID: 1005539443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 300, y: -70}
   m_SizeDelta: {x: 600, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &358643064
@@ -6185,6 +6198,19 @@ MonoBehaviour:
   notiText: {fileID: 982088682}
   yesText: {fileID: 1524246573}
   noText: {fileID: 573910464}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &432346960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7824,6 +7850,19 @@ MonoBehaviour:
   notiText: {fileID: 1195881193}
   yesText: {fileID: 2113287202}
   noText: {fileID: 1535369416}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &519720154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14411,6 +14450,19 @@ MonoBehaviour:
   notiText: {fileID: 284256570}
   yesText: {fileID: 674120006}
   noText: {fileID: 717121409}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &846250734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14622,6 +14674,19 @@ MonoBehaviour:
   notiText: {fileID: 1499569201}
   yesText: {fileID: 891341637}
   noText: {fileID: 880162823}
+  btnYes: {fileID: 1124094932}
+  btnNo: {fileID: 1613926415}
+  btnOkay: {fileID: 1655691353}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &848577323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17623,6 +17688,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 701f40758290b7c4ea2edb42b82807f5, type: 2}
   - {fileID: 11400000, guid: ac0c3cbd8f342294ab1b1d44307e5e49, type: 2}
   - {fileID: 11400000, guid: 2ef5574a0cf5a98499991a56e783d601, type: 2}
+  winner: {fileID: 0}
+  loser: {fileID: 0}
   year: 1600
 --- !u!4 &1018371048
 Transform:
@@ -18644,6 +18711,19 @@ MonoBehaviour:
   notiText: {fileID: 2030887440}
   yesText: {fileID: 1645020407}
   noText: {fileID: 1380216428}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &1094017868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20339,6 +20419,19 @@ MonoBehaviour:
   notiText: {fileID: 240740539}
   yesText: {fileID: 539537344}
   noText: {fileID: 1530102671}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &1235017918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26077,6 +26170,19 @@ MonoBehaviour:
   notiText: {fileID: 985374963}
   yesText: {fileID: 798011381}
   noText: {fileID: 267402871}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &1598389264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27235,7 +27341,7 @@ GameObject:
   - component: {fileID: 1655691354}
   - component: {fileID: 1655691353}
   m_Layer: 5
-  m_Name: OkeyButton
+  m_Name: OkayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30377,13 +30483,14 @@ GameObject:
   - component: {fileID: 1843164433}
   - component: {fileID: 1843164435}
   - component: {fileID: 1843164434}
+  - component: {fileID: 1843164436}
   m_Layer: 5
   m_Name: CombatPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1843164433
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30447,6 +30554,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843164432}
   m_CullTransparentMesh: 1
+--- !u!114 &1843164436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843164432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1c64c936e4bf24b9faf6f5fbfd76a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dialog
+  notiText: {fileID: 0}
+  yesText: {fileID: 0}
+  noText: {fileID: 0}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 1644859605}
+  attackerImage:
+  - {fileID: 712430990}
+  - {fileID: 484136999}
+  - {fileID: 473313378}
+  attackerNameText:
+  - {fileID: 1823126094}
+  - {fileID: 834915151}
+  - {fileID: 183189392}
+  attackerStrText:
+  - {fileID: 1134334163}
+  - {fileID: 1653051358}
+  - {fileID: 581152789}
+  defenderFactionImage: {fileID: 944207818}
+  defenderImage:
+  - {fileID: 1740241700}
+  - {fileID: 801039217}
+  - {fileID: 1730326145}
+  defenderNameText:
+  - {fileID: 1061474880}
+  - {fileID: 1562243047}
+  - {fileID: 1793404037}
+  defenderStrText:
+  - {fileID: 227833520}
+  - {fileID: 517953931}
+  - {fileID: 1549771733}
 --- !u!1 &1853528179
 GameObject:
   m_ObjectHideFlags: 0
@@ -30557,9 +30710,9 @@ RectTransform:
   - {fileID: 1134334162}
   m_Father: {fileID: 1209792408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 300, y: -70}
   m_SizeDelta: {x: 600, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1864825020
@@ -30959,6 +31112,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogManager
   dialogs:
   - {fileID: 848577322}
+  - {fileID: 1094017867}
+  - {fileID: 519720153}
+  - {fileID: 846250733}
+  - {fileID: 432346959}
+  - {fileID: 1950111037}
+  - {fileID: 24751204}
+  - {fileID: 1598389263}
+  - {fileID: 1235017917}
+  - {fileID: 1843164436}
   dialogDatas:
   - {fileID: 11400000, guid: 6b4f69dbe1b4b7b4a8981b3bd86e20dd, type: 2}
 --- !u!1 &1875904199
@@ -32620,6 +32782,19 @@ MonoBehaviour:
   notiText: {fileID: 1944264853}
   yesText: {fileID: 2008390845}
   noText: {fileID: 1622469466}
+  btnYes: {fileID: 0}
+  btnNo: {fileID: 0}
+  btnOkay: {fileID: 0}
+  okayText: {fileID: 0}
+  charImage: {fileID: 0}
+  attackerFactionImage: {fileID: 0}
+  attackerImage: []
+  attackerNameText: []
+  attackerStrText: []
+  defenderFactionImage: {fileID: 0}
+  defenderImage: []
+  defenderNameText: []
+  defenderStrText: []
 --- !u!114 &1950111038
 MonoBehaviour:
   m_ObjectHideFlags: 0

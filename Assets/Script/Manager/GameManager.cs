@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
@@ -101,6 +102,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private ProductData[] productDatas;
     public ProductData[] ProductDatas { get { return productDatas; } }
+
+    // Combat
+
+    [SerializeField] private Unit winner;
+
+    [SerializeField] private Unit loser;
 
     // Misc
 
@@ -708,5 +715,105 @@ public class GameManager : MonoBehaviour
         SelectPlayerUnit(ship);
         CameraController.instance.MoveCamera(ship.CurPos);
         ship.Visible = true;
+    }
+
+    // Combat
+
+    private IEnumerator ShowCausaltyReportWait(float seconds)
+    {
+        // attacking animation
+        yield return new WaitForSeconds(seconds);
+        Debug.Log("Show combat Dialog");
+        DialogManager.instance.ToggleCombatPanel(true);
+    }
+
+    private void CalculateCombatLogic(Unit ourUnit, Unit enemyUnit)
+    {
+        if (ourUnit.Strength > enemyUnit.Strength)
+        {
+            winner = ourUnit;
+            loser = enemyUnit;
+        } 
+        else if (ourUnit.Strength < enemyUnit.Strength)
+        {
+            winner = enemyUnit;
+            loser = ourUnit;
+        }
+        else // draw 
+        {
+            int n = Random.Range(0,2);
+
+            if (n == 0)
+            {
+                winner = ourUnit;
+                loser = enemyUnit;
+            }
+            else
+            {
+                winner = enemyUnit;
+                loser = ourUnit;
+            }
+        }
+    }
+
+    public void SetupDeadUnit(Unit deadUnit)
+    {
+        Faction faction = deadUnit.Faction;
+        Hex hex = deadUnit.CurHex;
+
+        if (deadUnit.UnitType == UnitType.Naval)
+        {
+            NavalUnit ship = (NavalUnit)deadUnit;
+
+            foreach (LandUnit passenger in ship.Passengers)
+            {
+                if (hex.UnitsInHex.Contains(passenger))
+                    hex.UnitsInHex.Remove(passenger);
+
+                faction.Units.Remove(passenger);
+                Destroy(passenger.gameObject);
+            }
+        }
+
+        if (hex.UnitsInHex.Contains(deadUnit))
+            hex.UnitsInHex.Remove(deadUnit);
+
+        faction.Units.Remove(deadUnit);
+        Destroy(deadUnit.gameObject);
+    }
+
+    private IEnumerator ShowUnitDies(float seconds, Unit winner, Unit loser)
+    {
+        yield return new WaitForSeconds(seconds);
+        Debug.Log("Hide Combat Dialog");
+        DialogManager.instance.ToggleCombatPanel(false);
+
+        // loser dies animation
+        Debug.Log("Animation");
+
+        SetupDeadUnit(loser);
+
+        if (curUnit == loser)
+        {
+            curUnit = null;
+            SelectPlayerFirstUnit();
+        }
+
+        DialogManager.instance.ShowCombatResult(winner, loser);
+    }
+
+    private void ShowMilitaryResultDialog()
+    {
+        DialogManager.instance.ShowCombatResult(winner, loser);
+    }
+
+    public void StartCombat(Unit attacker, Unit defender)
+    {
+        DialogManager.instance.CombatAnalysisInit(attacker, defender);
+        StartCoroutine(ShowCausaltyReportWait(0.5f));
+
+        CalculateCombatLogic(attacker, defender);
+
+        StartCoroutine(ShowUnitDies(4f, winner, loser));
     }
 }

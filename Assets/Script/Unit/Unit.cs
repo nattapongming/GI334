@@ -47,6 +47,9 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     [SerializeField] protected int visualRange;
     public int VisualRange { get { return visualRange; } }
 
+    [SerializeField] protected Unit targetUnit;
+    public Unit TargetUnit { get { return targetUnit; } set { targetUnit = value; } }
+
 
     // Hex / position info
 
@@ -206,13 +209,32 @@ public class Unit : MonoBehaviour, IPointerClickHandler
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            if (gameMgr.CurUnit == null) return;
+            
             if (gameMgr.CheckIfHexIsAdjacent(gameMgr.CurUnit.CurHex, curHex))
             {
                 if (faction == gameMgr.PlayerFaction) // Same faction
                     gameMgr.CurUnit.PrepareMoveToHex(curHex);
                 else // Diff side unit
-                Debug.Log($"{gameMgr.CurUnit} Attacks {unitName}");
+                {
+                    Debug.Log($"{gameMgr.CurUnit} Attacks {unitName}");
+
+                    gameMgr.CurUnit.AttackUnit(curHex, this);
+                }
             }
         }
+    }
+
+    // Combat Medthod
+
+    public void AttackUnit(Hex target, Unit defender) // Begin to attack
+    {
+        if (target.MoveCost > movePoint) return;
+
+        targetHex = target;
+        targetUnit = defender;
+        movePoint = 0;
+
+        gameMgr.StartCombat(this, defender);
     }
 }

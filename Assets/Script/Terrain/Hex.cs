@@ -241,10 +241,27 @@ public class Hex : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            Unit curUnit = gameManager.CurUnit;
+            if (curUnit == null) return;
+
             if (gameManager.CheckIfHexIsAdjacent(gameManager.CurUnit.CurHex, this))
             {
-                gameManager.CurUnit.PrepareMoveToHex(this);
+                Unit enemy = FindEnemyUnit(curUnit.Faction);
+
+                if (enemy != null)
+                    curUnit.AttackUnit(this, enemy);   // enemy here → attack
+                else
+                    curUnit.PrepareMoveToHex(this);    // empty / friendly → move
             }
         }
+    }
+
+    private Unit FindEnemyUnit(Faction faction)
+    {
+        foreach (Unit unit in UnitsInHex)
+        {
+            if (unit.Faction != faction) return unit;
+        }
+        return null;
     }
 }
