@@ -1268,7 +1268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -290}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 800, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &143207043
@@ -1567,7 +1567,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -290}
+  m_AnchoredPosition: {x: 0, y: -280}
   m_SizeDelta: {x: 800, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &153238502
@@ -6722,8 +6722,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867850800}
         m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: NoGoToEurope
-        m_Mode: 1
+        m_MethodName: MakePeaceWithFaction
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8804,6 +8804,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567265865}
+  m_CullTransparentMesh: 1
+--- !u!1 &567753032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 567753033}
+  - component: {fileID: 567753035}
+  - component: {fileID: 567753034}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &567753033
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567753032}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 846250732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -665, y: 0}
+  m_SizeDelta: {x: 768, y: 1024}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &567753034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567753032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &567753035
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567753032}
   m_CullTransparentMesh: 1
 --- !u!1 &568189648
 GameObject:
@@ -10953,7 +11028,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Yes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11969,7 +12044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: No
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14430,6 +14505,7 @@ RectTransform:
   m_Children:
   - {fileID: 1250897412}
   - {fileID: 143207042}
+  - {fileID: 567753033}
   m_Father: {fileID: 720479110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -14452,11 +14528,11 @@ MonoBehaviour:
   notiText: {fileID: 284256570}
   yesText: {fileID: 674120006}
   noText: {fileID: 717121409}
-  btnYes: {fileID: 0}
-  btnNo: {fileID: 0}
-  btnOkay: {fileID: 0}
-  okayText: {fileID: 0}
-  charImage: {fileID: 0}
+  btnYes: {fileID: 1372928605}
+  btnNo: {fileID: 468738588}
+  btnOkay: {fileID: 1474677992}
+  okayText: {fileID: 650290671}
+  charImage: {fileID: 567753034}
   attackerFactionImage: {fileID: 0}
   attackerImage: []
   attackerNameText: []
@@ -14485,7 +14561,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ac296c1589a6364e9dae271a605d1d6, type: 3}
+  m_Sprite: {fileID: 8470284375848492234, guid: f96c285b29098004283a40daf9d0cb36, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20872,8 +20948,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -160}
-  m_SizeDelta: {x: 820, y: 144}
+  m_AnchoredPosition: {x: 0, y: 60}
+  m_SizeDelta: {x: 820, y: 430}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1250897413
 MonoBehaviour:
@@ -21196,7 +21272,7 @@ GameObject:
   - component: {fileID: 1267124878}
   - component: {fileID: 1267124877}
   m_Layer: 5
-  m_Name: OkeyButton
+  m_Name: OkayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22500,15 +22576,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867850800}
         m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: YesGoToEurope
-        m_Mode: 1
+        m_MethodName: MakePeaceWithFaction
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1372928606
 MonoBehaviour:
@@ -23443,7 +23519,7 @@ GameObject:
   - component: {fileID: 1474677993}
   - component: {fileID: 1474677992}
   m_Layer: 5
-  m_Name: OkeyButton
+  m_Name: OkayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23515,7 +23591,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867850800}
         m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: ToggleNavalDialog
+        m_MethodName: ToggleForeignDialog
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24971,7 +25047,7 @@ GameObject:
   - component: {fileID: 1542673265}
   - component: {fileID: 1542673264}
   m_Layer: 5
-  m_Name: OkeyButton
+  m_Name: OkayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25043,7 +25119,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867850800}
         m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: ToggleNavalDialog
+        m_MethodName: ToggleColonyDialog
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27349,7 +27425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1655691352
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31294,7 +31370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -160}
+  m_AnchoredPosition: {x: 0, y: -110}
   m_SizeDelta: {x: 820, y: 144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1878972106

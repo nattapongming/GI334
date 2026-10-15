@@ -107,6 +107,9 @@ public class LandUnit : Unit
 
         if (ship != null)
             BoardingShip(ship);
+
+        if (faction == gameMgr.PlayerFaction)
+            gameMgr.CheckUnmetFaction(this);
     }
 
     public void UnitInit(GameManager gameMgr, UiManager uiMgr ,Faction fact, LandUnitData data)

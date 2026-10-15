@@ -290,6 +290,17 @@ public class GameManager : MonoBehaviour
         return HexCalculator.CheckIfHexAroundHasTown(allHexes, hex);
     }
 
+    public void CheckUnmetFaction(Unit unit)
+    {
+        Faction faction = HexCalculator.CheckNeverMetFaction(allHexes, unit);
+
+        if (faction != null)
+        {
+            CurForeignFaction = faction;
+            DialogManager.instance.ToggleForeignDialog(true);
+        }
+    }
+
     public void ResetAllUnits(Faction faction)
     {
         foreach (Unit unit in faction.Units)

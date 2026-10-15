@@ -106,5 +106,24 @@ public static class HexCalculator
         return hexArray;
     }
 
+    public static Faction CheckNeverMetFaction(Hex[,] hexes, Unit playerUnit)
+    {
+        List<Hex> aroundHexes = new List<Hex>();
+        aroundHexes = GetHexAround(hexes, playerUnit.CurHex);
+
+        foreach (Hex hex in aroundHexes)
+        {
+            foreach (Unit other in hex.UnitsInHex)
+            {
+                if (other.Faction != playerUnit.Faction)
+                {
+                    if (other.Faction.MetByPlayer == false)
+                    return other.Faction;
+                }
+            }
+        }
+        return null;
+    }
+
     
 }

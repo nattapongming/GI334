@@ -78,6 +78,10 @@ public class NavalUnit : Unit
             unit.CurHex = hex;
             unit.CurPos = hex.Pos;
         }
+
+        if (faction == gameMgr.PlayerFaction)
+            gameMgr.CheckUnmetFaction(this);
+
         //gameMgr.CheckShipToEurope();
         if (faction == gameMgr.PlayerFaction    // only YOUR ships (no pop-up on AI turn)
         && oldHex != hex                    // only if it really moved (not "clicked land")
