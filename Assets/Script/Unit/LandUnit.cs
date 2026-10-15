@@ -44,6 +44,8 @@ public class LandUnit : Unit
     [SerializeField] private NavalUnit transportShip;
     public NavalUnit TransportShip { get { return transportShip;} set { transportShip = value; } }
 
+    [SerializeField] protected UiManager uiMgr;
+
     protected override void Update()
     {
         base.Update();
@@ -107,9 +109,10 @@ public class LandUnit : Unit
             BoardingShip(ship);
     }
 
-    public void UnitInit(GameManager gameMgr, Faction fact, LandUnitData data)
+    public void UnitInit(GameManager gameMgr, UiManager uiMgr ,Faction fact, LandUnitData data)
     {
         this.gameMgr = gameMgr;
+        this.uiMgr = uiMgr;
         faction = fact;
         flagSprite.sprite = fact.ShieldIcon;
 
@@ -159,6 +162,9 @@ public class LandUnit : Unit
 
     public void ClearingLand()
     {
+        if (landUnitType != LandUnitType.HardyPioneers)
+            return;
+
         if (unitStatus == UnitStatus.Clearing) 
             return;
 
@@ -167,11 +173,12 @@ public class LandUnit : Unit
         || curHex.HexType == HexType.Hills
         || !curHex.HasForest)
         {
-            Debug.Log("Must be on Forest");
+            uiMgr.ShowColonyNoForestText();
         }
         else if (toolsNum < 20)
         {
-            Debug.Log("Not enough tools");
+            //Debug.Log("Not enough tools");
+            uiMgr.ShowColonyNotEnoughToolsText(toolsNum);
         }
         else
         {
@@ -182,6 +189,9 @@ public class LandUnit : Unit
 
     public void BuildSettlement()
     {
+        if (landUnitType != LandUnitType.HardyPioneers)
+            return;
+
         if (unitStatus == UnitStatus.Building || curHex.HasTown)
             return;
 
@@ -192,11 +202,17 @@ public class LandUnit : Unit
         || curHex.HexType == HexType.Hills
         || curHex.HasForest)
         {
-            Debug.Log("Must be on Cleared Land");
+            //Debug.Log("Must be on Cleared Land");
+            uiMgr.ShowColonyClearLandText();
         }
         else if (toolsNum < 20)
         {
-            Debug.Log("Not enough tools");
+            //Debug.Log("Not enough tools");
+            uiMgr.ShowColonyNotEnoughToolsText(toolsNum);
+        }
+        else if (gameMgr.CheckIfAroundHexHasTown(curHex))
+        {
+            uiMgr.ShowColonyHasOtherTownAroundText();
         }
         else
         {

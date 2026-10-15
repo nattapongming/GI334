@@ -285,6 +285,11 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
+    public bool CheckIfAroundHexHasTown(Hex hex)
+    {
+        return HexCalculator.CheckIfHexAroundHasTown(allHexes, hex);
+    }
+
     public void ResetAllUnits(Faction faction)
     {
         foreach (Unit unit in faction.Units)
@@ -381,7 +386,7 @@ public class GameManager : MonoBehaviour
         GameObject obj = Instantiate(landUnitPrefab, hex.Pos, Quaternion.identity, ship.PassengerParent.transform);
         LandUnit unit = obj.GetComponent<LandUnit>();
 
-        unit.UnitInit(this, faction, landUnitData[unitId]);
+        unit.UnitInit(this, UiManager.instance, faction, landUnitData[unitId]);
         unit.SetUpPosition(hex);
         unit.UnitStatus = UnitStatus.OnBoard;
         obj.SetActive(false);
@@ -594,7 +599,7 @@ public class GameManager : MonoBehaviour
         GameObject obj = Instantiate(landUnitPrefab, hex.Pos, Quaternion.identity, faction.UnitParent);
         LandUnit unit = obj.GetComponent<LandUnit>();
 
-        unit.UnitInit(this, faction, landUnitData[unitId]);
+        unit.UnitInit(this, UiManager.instance, faction, landUnitData[unitId]);
         unit.SetUpPosition(hex);
         unit.ShowHideSprite(show);
 

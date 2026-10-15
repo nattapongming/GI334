@@ -577,4 +577,26 @@ public class UiManager : MonoBehaviour
     {
         moneyEuropeText.text = $"{GameManager.instance.PlayerFaction.Money}";
     }
+
+    // Colony Medthod
+
+    public void ShowColonyClearLandText()
+    {
+        DialogManager.instance.ShowColonyClearLandText();
+    }
+
+    public void ShowColonyNotEnoughToolsText(int n)
+    {
+        DialogManager.instance.ShowColonyNotEnoughToolsText(n);
+    }
+
+    public void ShowColonyHasOtherTownAroundText()
+    {
+        DialogManager.instance.ShowColonyHasOtherTownAround();
+    }
+
+    public void ShowColonyNoForestText()
+    {
+        DialogManager.instance.ShowColonyNoForestText();
+    }
 }

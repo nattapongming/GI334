@@ -98,7 +98,7 @@ public class DialogManager : MonoBehaviour
     public void ShowColonyClearLandText()
     {
         ToggleColonyDialog(true);
-        string text = "You must build a settlement on cleared land or hill, not forests or mountains. " +
+        string text = "You must build a settlement on cleared land not forests, hills or mountains. " +
         "Press <color=yellow>P</color> to clear the forest.";
         dialogs[6].ShowNotiText(text);
     }
@@ -115,6 +115,14 @@ public class DialogManager : MonoBehaviour
     {
         ToggleColonyDialog(true);
         string text = $"You can't build a settlement next to another settlement or village.";
+        dialogs[6].ShowNotiText(text);
+    }
+
+    public void ShowColonyNoForestText()
+    {
+        ToggleColonyDialog(true);
+        string text = "There is no forest to clear here. " +
+        "Move this unit onto a <color=yellow>forest</color> and press <color=yellow>P</color> to clear it.";
         dialogs[6].ShowNotiText(text);
     }
 
