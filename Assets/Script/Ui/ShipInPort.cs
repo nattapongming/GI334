@@ -37,6 +37,11 @@ public class ShipInPort : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Click at a ship");
+
+        if (uiMgr.InEurope)
+            uiMgr.SetupSelectedShipsCargoSlotEurope(navalUnit);
+        else
+            uiMgr.SetupSelectedShipsCargoSlot(navalUnit);
     }
 
     public void UnitInit(NavalUnit navalUnit, bool genShipDrag)

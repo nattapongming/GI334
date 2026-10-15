@@ -59,6 +59,9 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private GameObject cargoDragPrefab; // icon dragged from ship's cargo
 
+    [SerializeField] private GameObject purchaseShipPanel;
+    public GameObject PurchaseShipPanel { get { return purchaseShipPanel; } }
+
     // Price
     [SerializeField] TMP_Text moneyText;
     [SerializeField] TMP_Text moneyEuropeText;
@@ -566,6 +569,20 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    // Setup selected ship's cargo slot in New World
+    public void SetupSelectedShipsCargoSlot(NavalUnit ship)
+    {
+        SetupCargoSlot(ship, cargoSlots);
+        UpdateCargoSlots(ship, cargoSlots);
+    }
+
+    // Setup selected ship's cargo slot inEurope
+    public void SetupSelectedShipsCargoSlotEurope(NavalUnit ship)
+    {
+        SetupCargoSlot(ship, cargoSlotsEurope);
+        UpdateCargoSlots(ship, cargoSlotsEurope);
+    }
+
     // Money Medthod
 
     public void UpdateMoneyText()
@@ -598,5 +615,36 @@ public class UiManager : MonoBehaviour
     public void ShowColonyNoForestText()
     {
         DialogManager.instance.ShowColonyNoForestText();
+    }
+
+    // Purchase / training medthod
+
+    public void AddNewShipInEurope(int i)
+    {
+        if (!GameManager.instance.CheckShipPriceAndMoney(i))
+            return;
+
+        NavalUnit ship = GameManager.instance.GenerateHiddenShip(i);
+        EuropeManager.instance.ShipsInEurope.Add(ship);
+
+        //Hide ship game object in map01
+        ship.gameObject.SetActive(false);
+
+        GameObject unitObj = Instantiate(shipInPortPrefab, europePortShipsParent.transform);
+        allShipInEuropeIcons.Add(unitObj);
+
+        ShipInPort shipIcon = unitObj.GetComponent<ShipInPort>();
+        shipIcon.UnitInit(ship, true);
+
+        GameManager.instance.PayShipPrice(i);
+        UpdateMoneyEuropeText();
+        TogglePurchasePanel(false);
+
+        SetupSelectedShipsCargoSlotEurope(ship);
+    }
+
+    public void TogglePurchasePanel(bool flag)
+    {
+        purchaseShipPanel.SetActive(flag);
     }
 }

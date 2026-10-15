@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -16,7 +18,8 @@ public enum UnitStatus
     Clearing,
     Building,
     WorkInField,
-    WorkInTown
+    WorkInTown,
+    Hidden
 }
 
 public class Unit : MonoBehaviour, IPointerClickHandler
@@ -50,6 +53,8 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     [SerializeField] protected Unit targetUnit;
     public Unit TargetUnit { get { return targetUnit; } set { targetUnit = value; } }
 
+    [SerializeField] protected SpriteRenderer statusSprite;
+    public SpriteRenderer StatusSprite { get { return statusSprite; } set { statusSprite = value; } }
 
     // Hex / position info
 
@@ -79,6 +84,9 @@ public class Unit : MonoBehaviour, IPointerClickHandler
 
     [Header("Border")]
     [SerializeField] protected SpriteRenderer borderSprite;
+
+    [Header("Status")]
+    [SerializeField] protected List<Sprite> statusSpritesList;
 
     [SerializeField] protected GameManager gameMgr;    
 
@@ -236,5 +244,29 @@ public class Unit : MonoBehaviour, IPointerClickHandler
         movePoint = 0;
 
         gameMgr.StartCombat(this, defender);
+    }
+
+    // 
+
+    public void ChangeStatusIcon()
+    {
+        if (statusSprite == null)
+            return;
+
+        switch (unitStatus)
+        {
+            case UnitStatus.Clearing:
+                statusSprite.gameObject.SetActive(true);
+                statusSprite.sprite = statusSpritesList[0];
+                break;
+            case UnitStatus.Building:
+                statusSprite.gameObject.SetActive(true);
+                statusSprite.sprite = statusSpritesList[1];
+                break;
+            default:
+                statusSprite.gameObject.SetActive(false);
+                statusSprite = null;
+                break;
+        }
     }
 }

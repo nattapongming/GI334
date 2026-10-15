@@ -738,6 +738,102 @@ public class GameManager : MonoBehaviour
         ship.Visible = true;
     }
 
+    // Price, Purchase / train unit
+
+    //Ship bought from Europe in Map01 as hidden ship at x, y (0, 0)
+    public NavalUnit GenerateHiddenShip(int id)
+    {
+        Hex hex = allHexes[0, 0];
+
+        GameObject obj = Instantiate(navelUnitPrefab, hex.Pos, Quaternion.identity, playerFaction.UnitParent);
+        NavalUnit ship = obj.GetComponent<NavalUnit>();
+
+        ship.UnitInit(this, playerFaction, navalUnitData[id]);
+        ship.SetUpPosition(hex);
+        playerFaction.Units.Add(ship);
+        ship.UnitStatus = UnitStatus.Hidden;
+
+        return ship;
+    }
+
+    public bool CheckShipPriceAndMoney(int i)
+    {
+        if (playerFaction.Money < navalUnitData[i].price)
+            return false;
+        else
+            return true;
+    }
+
+    public void PayShipPrice(int i)
+    {
+        playerFaction.Money -= navalUnitData[i].price;
+    }
+
+    public void CheckIfPassengerReadyToBoardShip(NavalUnit ship, Hex hex, Faction faction)
+    {
+        List<Unit> unitsToRemove = new List<Unit>();
+
+        foreach (Unit unit in hex.UnitsInHex)
+        {
+            if (unit.UnitType == UnitType.Land && unit.UnitStatus == UnitStatus.OnBoard)
+            {
+                if ((ship.Passengers.Count + ship.CargoList.Count) < ship.CargoHoldNum)
+                {
+                    LandUnit landUnit = (LandUnit)unit;
+                    landUnit.BoardingShip(ship);
+                    landUnit.gameObject.SetActive(false);
+                    unitsToRemove.Add(unit);
+                }
+            }
+        }
+
+        foreach (Unit unit in unitsToRemove)
+            hex.UnitsInHex.Remove(unit);
+    }
+
+    public void CheckPassengerArriving(NavalUnit ship, Hex hex, Faction faction)
+    {
+        foreach (LandUnit unit in ship.Passengers)
+        {
+            //ArriveAtPort
+            unit.UnitStatus = UnitStatus.None;
+            unit.ChangeStatusIcon();
+            gameObject.transform.parent = faction.UnitParent.transform;
+            unit.TransportShip = null;
+        }
+        ship.Passengers.Clear();
+    }
+
+    public bool CheckLandUnitPriceAndMoney(int i)
+    {
+        if (playerFaction.Money < landUnitData[i].price)
+            return false;
+        else
+            return true;
+    }
+
+    // Land Unit bought from Europe in Map01 as hidden
+
+    public LandUnit GenerateHiddenLandUnit(int id)
+    {
+        Hex hex = allHexes[0,0];
+
+        GameObject obj = Instantiate(landUnitPrefab, hex.Pos, Quaternion.identity, playerFaction.UnitParent);
+        LandUnit unit = obj.GetComponent<LandUnit>();
+
+        unit.UnitInit(this, UiManager.instance, playerFaction, landUnitData[id]);
+        unit.SetUpPosition(hex);
+        playerFaction.Units.Add(unit);
+        unit.UnitStatus = UnitStatus.Hidden;
+
+        return null;
+    }
+
+    public void PayUnitPrice(int i)
+    {
+        playerFaction.Money -= landUnitData[i].price;
+    }
+
     // Combat
 
     private IEnumerator ShowCausaltyReportWait(float seconds)
