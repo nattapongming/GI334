@@ -46,6 +46,9 @@ public class Faction : MonoBehaviour
     [SerializeField] private Sprite townIcon;
     public Sprite TownIcon { get { return townIcon; } }
 
+    [SerializeField] private Sprite leaderSprite;
+    public Sprite LeaderSprite { get { return leaderSprite; } }
+
     // Town and Unit
 
     [SerializeField] private List<Town> towns = new List<Town>();
@@ -59,6 +62,14 @@ public class Faction : MonoBehaviour
     [SerializeField] private int money = 1000;
     public int Money { get { return money; } set { money = value; } }
 
+    // Ai
+
+    [SerializeField] private bool metByPlayer = false;
+    public bool MetByPlayer { get { return metByPlayer; } set { metByPlayer = value; } }
+
+    [SerializeField] bool atPeaceWithPlayer = true;
+    public bool AtPeaceWithPlayer { get { return atPeaceWithPlayer; } set { atPeaceWithPlayer = value; } }
+
     public void FactionInit(FactionData data)
     {
         nation = data.nation;
@@ -68,5 +79,6 @@ public class Faction : MonoBehaviour
         shieldIcon = data.shieldIcon;
         unitIcon = data.unitIcon;
         townIcon = data.townIcon;
+        leaderSprite = data.leaderSprite;
     }
 }

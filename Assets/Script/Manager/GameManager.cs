@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FactionData[] factionData;
     public FactionData[] FactionDatas { get { return factionData; } }
 
+    [SerializeField] private Faction curForeignFaction; // cur Faction that player meet
+    public Faction CurForeignFaction { get { return curForeignFaction; } set { curForeignFaction = value; } }
+
 
     // Unit Prefab
 
@@ -138,6 +141,8 @@ public class GameManager : MonoBehaviour
         GenerateAllEuropeanExploreUnits();
         GenerateAllNativeTowns();
         GenerateAllNativeUnits();
+
+        ShowFirstKingDialogText();
     }
 
     // Update is called once per frame
@@ -815,5 +820,12 @@ public class GameManager : MonoBehaviour
         CalculateCombatLogic(attacker, defender);
 
         StartCoroutine(ShowUnitDies(4f, winner, loser));
+    }
+
+    // Dialog
+
+    public void ShowFirstKingDialogText()
+    {
+        DialogManager.instance.ShowFirstKingQuestionDialogText();
     }
 }

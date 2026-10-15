@@ -233,7 +233,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Okay!
+  m_text: 'As you wish.,
+
+    Sire'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2167,7 +2169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &177918549
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2185,8 +2187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -30}
-  m_SizeDelta: {x: 800, y: 60}
+  m_AnchoredPosition: {x: 305, y: -30}
+  m_SizeDelta: {x: 610, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &177918550
 MonoBehaviour:
@@ -11066,8 +11068,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -160}
-  m_SizeDelta: {x: 820, y: 144}
+  m_AnchoredPosition: {x: 175, y: 135}
+  m_SizeDelta: {x: 620, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &677915154
 MonoBehaviour:
@@ -12450,7 +12452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &744640913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12468,8 +12470,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -90}
-  m_SizeDelta: {x: 800, y: 60}
+  m_AnchoredPosition: {x: 305, y: -90}
+  m_SizeDelta: {x: 610, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &744640914
 MonoBehaviour:
@@ -17642,6 +17644,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19f67ceb586c15e4da933edb458672e0, type: 2}
   - {fileID: 11400000, guid: 79dcf15ff72671142905320e469067ef, type: 2}
   - {fileID: 11400000, guid: ae7d05fdbc072f9478b04dbb5eed2e3c, type: 2}
+  curForeignFaction: {fileID: 0}
   landUnitPrefab: {fileID: 608894127567574363, guid: 039fc5b1640e6ba468f0b8fb18f80da9, type: 3}
   navelUnitPrefab: {fileID: 608894127567574363, guid: 06dce9adcee8a5b49b21fd3917ffecc8, type: 3}
   townPrefab: {fileID: 608894127567574363, guid: 4ea85837a50b4e141b5c780b3231ab12, type: 3}
@@ -21216,8 +21219,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -150}
-  m_SizeDelta: {x: 800, y: 60}
+  m_AnchoredPosition: {x: 305, y: -30}
+  m_SizeDelta: {x: 610, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1267124877
 MonoBehaviour:
@@ -21265,7 +21268,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1867850800}
         m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: ToggleNavalDialog
+        m_MethodName: ToggleKingDialog
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21560,8 +21563,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -290}
-  m_SizeDelta: {x: 800, y: 120}
+  m_AnchoredPosition: {x: 180, y: -71}
+  m_SizeDelta: {x: 610, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1295189622
 MonoBehaviour:
@@ -26528,7 +26531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: No
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -32557,8 +32560,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -32815,7 +32818,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ac296c1589a6364e9dae271a605d1d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07c4d7718b6b6cb41831a7d769429c28, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -33401,7 +33404,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Yes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
