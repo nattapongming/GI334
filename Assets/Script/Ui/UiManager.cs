@@ -62,6 +62,34 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject purchaseShipPanel;
     public GameObject PurchaseShipPanel { get { return purchaseShipPanel; } }
 
+    [SerializeField]
+    private LandUnit curLandUnit;
+    public LandUnit CurLandUnit { get { return curLandUnit; } set { curLandUnit = value; } }
+
+    [SerializeField]
+    private GameObject orderPanel;
+    public GameObject OrderPanel { get { return orderPanel; } set { orderPanel = value; } }
+
+    [SerializeField]
+    private GameObject trainUnitPanel;
+    public GameObject TrainUnitPanel { get { return trainUnitPanel; } }
+
+    [SerializeField] private GameObject europePortUnitParent;
+
+    [SerializeField]
+    private List<GameObject> waitingLandUnitsInEuropeIcons; //icons of people waiting at the port
+    public List<GameObject> WaitingLandUnitsInEuropeIcons { get { return waitingLandUnitsInEuropeIcons; } }
+
+    [SerializeField]
+    private UnitDrag curUnitIcon; //current land Unit icon a player has selected
+    public UnitDrag CurUnitIcon { get { return curUnitIcon; } set { curUnitIcon = value; } }
+
+    // [Header("Unit Info UI")]
+    // [SerializeField]
+    // private UnitInfoPanel unitInfoPanel;
+    // public UnitInfoPanel UnitInfoPanel { get { return unitInfoPanel; } }
+
+
     // Price
     [SerializeField] TMP_Text moneyText;
     [SerializeField] TMP_Text moneyEuropeText;
@@ -646,5 +674,11 @@ public class UiManager : MonoBehaviour
     public void TogglePurchasePanel(bool flag)
     {
         purchaseShipPanel.SetActive(flag);
+    }
+
+    public void ToggleOrderPanel(bool flag)
+    {
+        blockImage.SetActive(flag);
+        orderPanel.SetActive(flag);
     }
 }

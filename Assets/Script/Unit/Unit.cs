@@ -19,7 +19,8 @@ public enum UnitStatus
     Building,
     WorkInField,
     WorkInTown,
-    Hidden
+    Hidden,
+    ToBoard
 }
 
 public class Unit : MonoBehaviour, IPointerClickHandler
@@ -54,7 +55,7 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     public Unit TargetUnit { get { return targetUnit; } set { targetUnit = value; } }
 
     [SerializeField] protected SpriteRenderer statusSprite;
-    public SpriteRenderer StatusSprite { get { return statusSprite; } set { statusSprite = value; } }
+    public SpriteRenderer StatusSprite { get { return statusSprite; } }
 
     // Hex / position info
 
@@ -85,8 +86,9 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     [Header("Border")]
     [SerializeField] protected SpriteRenderer borderSprite;
 
-    [Header("Status")]
-    [SerializeField] protected List<Sprite> statusSpritesList;
+    [Header("Status sprite")]
+    [SerializeField] protected Sprite[] statusSpritesList;
+    public Sprite[] StatusSpritesList { get { return statusSpritesList; } }
 
     [SerializeField] protected GameManager gameMgr;    
 
@@ -246,7 +248,7 @@ public class Unit : MonoBehaviour, IPointerClickHandler
         gameMgr.StartCombat(this, defender);
     }
 
-    // 
+    // Satus
 
     public void ChangeStatusIcon()
     {

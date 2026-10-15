@@ -23,6 +23,9 @@ public class EuropeManager : MonoBehaviour
     [SerializeField] private NavalUnit curShip;
     public NavalUnit CurShip { get { return curShip; } set { curShip = value; } }
 
+    [SerializeField] private List<LandUnit> landUnitsInEurope; // people waiting at the port
+    public List<LandUnit> LandUnitsInEurope { get { return landUnitsInEurope; } set { landUnitsInEurope = value; } }
+
     public static EuropeManager instance;
 
     void Awake()
@@ -150,5 +153,26 @@ public class EuropeManager : MonoBehaviour
         shipsInEurope.Remove(ship);
 
         UiManager.instance.UpdateIconsFromEuropeToNewWorld();
+    }
+
+    public void CheckIfPassengerInEuropeReadyToBoardShip(NavalUnit ship)
+    {
+        List<LandUnit> unitsToRemove = new List<LandUnit>();
+
+        foreach (LandUnit landUnit in landUnitsInEurope)
+        {
+            if (landUnit.UnitType == UnitType.Land && landUnit.UnitStatus == UnitStatus.OnBoard)
+            {
+                if ((ship.Passengers.Count + ship.CargoList.Count) < ship.CargoHoldNum)
+                {
+                    landUnit.BoardingShip(ship);
+                    landUnit.gameObject.SetActive(false);
+                    unitsToRemove.Add(landUnit);
+                }
+            }
+        }
+        
+        foreach (LandUnit unit in unitsToRemove)
+            landUnitsInEurope.Remove(unit);
     }
 }

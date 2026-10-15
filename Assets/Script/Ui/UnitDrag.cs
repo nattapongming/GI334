@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [SerializeField] private Image unitImage;
 
@@ -14,6 +14,15 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public Transform IconParent { get { return iconParent; } set { iconParent = value; } }
 
     [SerializeField] private TerrainSlot terrainSlot;
+
+    [SerializeField] private Image statusIcon;
+
+    [SerializeField] private UiManager uiMgr;
+
+    void Awake()
+    {
+        uiMgr = UiManager.instance;
+    }
 
     public void UnitInit(LandUnit landUnit)
     {
@@ -38,6 +47,22 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         this.terrainSlot = terrainSlot;
     }
 
+    public void checkStatusIcon()
+    {
+        if (statusIcon == null) return;
+
+        switch (landUnit.UnitStatus)
+        {
+            case UnitStatus.ToBoard:
+                statusIcon.gameObject.SetActive(true);
+                statusIcon.sprite = landUnit.StatusSpritesList[2];
+                break;
+            default:
+                statusIcon.gameObject.SetActive(false);
+                break;
+        }
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         iconParent = transform.parent;
@@ -55,5 +80,19 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         transform.SetParent(iconParent);
         unitImage.raycastTarget = true;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (landUnit.UnitStatus == UnitStatus.None 
+        || landUnit.UnitStatus == UnitStatus.OnBoard)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                uiMgr.CurLandUnit = landUnit;
+                uiMgr.CurUnitIcon = this;
+                uiMgr.ToggleOrderPanel(true);
+            }
+        }
     }
 }
