@@ -82,6 +82,9 @@ public class NavalUnit : Unit
         if (faction == gameMgr.PlayerFaction)
             gameMgr.CheckUnmetFaction(this);
 
+        if (destinationOnHex != null)
+            CheckMoveToDestination();
+
         //gameMgr.CheckShipToEurope();
         if (faction == gameMgr.PlayerFaction    // only YOUR ships (no pop-up on AI turn)
         && oldHex != hex                    // only if it really moved (not "clicked land")
@@ -123,4 +126,30 @@ public class NavalUnit : Unit
 
         return newCargo.Quantity;
     }
+
+    protected override void OnReachDestination()
+    {
+        if (faction == gameMgr.PlayerFaction) return;   // AI only
+        if (passengers.Count == 0) return;
+
+        Hex landHex = FindLandHexAround();
+        if (landHex == null) return;
+
+        // copy: DisembarkToHex removes from passengers while we loop
+        List<LandUnit> leaving = new List<LandUnit>(passengers);
+
+        foreach (LandUnit unit in leaving)
+            unit.DisembarkToHex(landHex);
+    }
+
+    private Hex FindLandHexAround()
+    {
+        foreach (Hex hex in HexCalculator.GetHexAround(gameMgr.AllHexes, curHex))
+        {
+            if (hex.HexType != HexType.Ocean && !hex.HasTown)
+                return hex;
+        }
+        return null;
+    }
+
 }

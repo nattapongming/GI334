@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum HexDirection
@@ -125,5 +126,62 @@ public static class HexCalculator
         return null;
     }
 
-    
+    private static List<HexDirection> GetHexDirectionList(Hex currentHex, Hex destHex)
+    {
+        List<HexDirection> directions = new List<HexDirection>();
+
+        if (destHex.Y > currentHex.Y)            // above
+        {
+            if (destHex.X <= currentHex.X)
+                directions.AddRange(new[] { HexDirection.TopLeft, HexDirection.TopRight, HexDirection.Left });
+            else
+                directions.AddRange(new[] { HexDirection.TopRight, HexDirection.TopLeft, HexDirection.Right });
+        }
+        else if (destHex.Y < currentHex.Y)       // below
+        {
+            if (destHex.X <= currentHex.X)
+                directions.AddRange(new[] { HexDirection.BottomLeft, HexDirection.BottomRight, HexDirection.Left });
+            else
+                directions.AddRange(new[] { HexDirection.BottomRight, HexDirection.BottomLeft, HexDirection.Right });
+        }
+        else                                     // same row
+        {
+            if (destHex.X > currentHex.X)
+                directions.AddRange(new[] { HexDirection.Right, HexDirection.TopRight, HexDirection.BottomRight });
+            else
+                directions.AddRange(new[] { HexDirection.Left, HexDirection.TopLeft, HexDirection.BottomLeft });
+        }
+        return directions;
+    }
+
+
+    public static Hex FindNextHexToGo(Unit unit, Hex currentHex, Hex destinationHex, Hex[,] allHexes)
+    {
+        if (destinationHex == null) return null;
+
+        if (destinationHex == currentHex) return null;
+
+        List<HexDirection> directions = GetHexDirectionList(currentHex, destinationHex);
+
+        List<Hex> hexesAround = new List<Hex>();
+
+        foreach (HexDirection dir in directions)
+        {
+            Hex hex = FindHexByDir(currentHex, dir, allHexes);
+            if (hex == null) continue;
+
+            if (unit.UnitType == UnitType.Naval && hex.HexType == HexType.Ocean)
+                hexesAround.Add(hex);
+
+            if (unit.UnitType == UnitType.Land && hex.HexType != HexType.Ocean)
+                hexesAround.Add(hex);
+        }
+
+        foreach (Hex hex in hexesAround)
+        {
+            if (hex.MoveCost <= unit.MovePoint) return hex;
+        }
+
+        return null;
+    }
 }

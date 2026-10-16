@@ -59,7 +59,6 @@ public class Unit : MonoBehaviour, IPointerClickHandler
 
     // Hex / position info
 
-
     [SerializeField] private Vector2 curPos;
     public Vector2 CurPos { get { return curPos; } set { curPos = value; } }
 
@@ -75,7 +74,11 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     [SerializeField] protected bool isVisible;
     public bool Visible { get { return isVisible; } set { isVisible = value; } }
 
+    [SerializeField] protected Hex destinationOnHex;
+    public Hex DestinationOnHex { get { return destinationOnHex; } set { destinationOnHex = value; } }
     
+    // Misc
+
     [Header("Unit")]
     [SerializeField] protected SpriteRenderer unitSprite;
     public SpriteRenderer UnitSprite { get { return unitSprite; } }
@@ -189,6 +192,38 @@ public class Unit : MonoBehaviour, IPointerClickHandler
 
         if (faction == gameMgr.PlayerFaction)
             gameMgr.LeaveSeenFogAroundUnit(this);
+    }
+
+    public void CheckMoveToDestination()
+    {
+        if (destinationOnHex == null) return;
+        // Arrived
+        if (curHex == destinationOnHex)
+        {
+            destinationOnHex = null;
+            OnReachDestination();
+            return;
+        }
+
+        // Find destination hex
+        Hex nextHex = HexCalculator.FindNextHexToGo(this, curHex, destinationOnHex, gameMgr.AllHexes);
+
+        if (nextHex == null)
+        {
+            // Full move points but still can't move → blocked, give up (AI moves randomly next turn)
+            if (movePoint == movePointMax)
+                destinationOnHex = null;
+            return;
+        }
+
+        PrepareMoveToHex(nextHex);
+    }
+
+    protected virtual void OnReachDestination() { }   // child classes decide what happens on arrival
+
+    public void SetUnitDestination(Hex hex)
+    {
+        destinationOnHex = hex;
     }
 
     // Sprite Methods

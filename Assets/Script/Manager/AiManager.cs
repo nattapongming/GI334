@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AiManager : MonoBehaviour
 {
@@ -12,14 +13,12 @@ public class AiManager : MonoBehaviour
 
     private void AutoMoveToHex(Unit unit)
     {
-        int n = Random.Range(0, 6);
-
-        Hex toGoHex = HexCalculator.FindHexByDir(unit.CurHex, (HexDirection)n, GameManager.instance.AllHexes);
-
-        if(toGoHex == null) return;
-
         unit.ShowHideSprite(true);
-        unit.PrepareMoveToHex(toGoHex);
+
+        if (unit.DestinationOnHex != null)
+            unit.CheckMoveToDestination();
+        else 
+            RandomMoveOneHex(unit);
     }
 
     private IEnumerator EnemyUnitMoves()
@@ -55,6 +54,51 @@ public class AiManager : MonoBehaviour
 
         GameManager.instance.StartNewTuen();
     }
+
+    // public void RandomMoveOneHex(Unit unit)
+    // {
+    //     Hex anyHex = null;
+    //     int n = Random.Range(0, 6);
+
+    //     // Move 
+    //     anyHex = HexCalculator.FindHexByDir(unit.CurHex, (HexDirection)n, GameManager.instance.AllHexes);
+
+    //     if (anyHex == null) return;
+
+    //     switch (unit.UnitType)
+    //     {
+    //         case UnitType.Land:
+    //             LandUnit landUnit = (LandUnit)unit;
+    //             landUnit.PrepareMoveToHex(anyHex);
+    //             break;
+
+    //         case UnitType.Naval:
+    //             NavalUnit navalUnit = (NavalUnit)unit;
+    //             navalUnit.PrepareMoveToHex(anyHex);
+    //             break;
+    //     }
+
+    // }
+
+    public void RandomMoveOneHex(Unit unit)
+    {
+        List<Hex> canGo = new List<Hex>();
+
+        foreach (Hex hex in HexCalculator.GetHexAround(GameManager.instance.AllHexes, unit.CurHex))
+        {
+            if (hex.MoveCost > unit.MovePoint) continue;                                  // too expensive
+            if (unit.UnitType == UnitType.Land  && hex.HexType == HexType.Ocean) continue; // land unit → no sea
+            if (unit.UnitType == UnitType.Naval && hex.HexType != HexType.Ocean) continue; // ship → no land
+            if (hex.UnitsInHex.Exists(u => u.Faction != unit.Faction)) continue;           // don't walk onto other factions
+
+            canGo.Add(hex);
+        }
+
+        if (canGo.Count == 0) return;   // really trapped → stay this turn
+
+        unit.PrepareMoveToHex(canGo[Random.Range(0, canGo.Count)]);
+    }
+
 
     public void StartAiTurn()
     {

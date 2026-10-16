@@ -301,6 +301,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private Hex FindNearestLandHexToLand(int y)
+    {
+        int min = oceanEdgeIndex - 3;
+        int max = oceanEdgeIndex + 4;
+
+        Hex destHex = null;
+
+        for (int x = min; x <= max; x++)
+        {
+            if (allHexes[x, y].HexType != HexType.Ocean)
+            {
+                destHex = allHexes[x, y];
+            }
+        }
+        
+        if (destHex == null) return null;
+
+        // one hex east of the coast = ocean the ship can actually reach
+        int oceanX = destHex.X + 1;
+        if (oceanX >= WIDTH || allHexes[oceanX, y].HexType != HexType.Ocean) return null;
+
+        return allHexes[oceanX, y];
+    }
+
     public void ResetAllUnits(Faction faction)
     {
         foreach (Unit unit in faction.Units)
@@ -389,6 +413,12 @@ public class GameManager : MonoBehaviour
             SelectPlayerUnit(ship);
             CameraController.instance.MoveCamera(ship.CurPos);
             ship.Visible = true;
+        }
+        else
+        {
+            Hex destinationHex = FindNearestLandHexToLand(yPos);
+            if (destinationHex != null)
+                ship.SetUnitDestination(destinationHex); 
         }
     }
 

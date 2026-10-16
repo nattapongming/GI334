@@ -100,13 +100,20 @@ public class LandUnit : Unit
         base.StayOnHex(hex);
 
         if (hex.HexType != HexType.Ocean)
-            return;
+        {
+        if (destinationOnHex != null)
+            CheckMoveToDestination();   // ← moved here: keep walking on land
+        return;
+        }
 
         // Check again if this ship can be boarded
         NavalUnit ship = gameMgr.CheckIfHexHasOurShipToBoard(hex);
 
         if (ship != null)
             BoardingShip(ship);
+
+        //if (destinationOnHex != null)
+        //    CheckMoveToDestination();
 
         if (faction == gameMgr.PlayerFaction)
             gameMgr.CheckUnmetFaction(this);
@@ -222,5 +229,13 @@ public class LandUnit : Unit
             unitStatus = UnitStatus.Building;
             toolsNum -= 20;
         }
+    }
+
+    public void DisembarkToHex(Hex landHex)
+    {
+        MakeLandFall();                 // status None, leave ship's passenger list, reparent
+        SetUpPosition(landHex);         // leave ship's hex, join land hex
+        transform.position = CurPos;
+        gameObject.SetActive(true);
     }
 }
