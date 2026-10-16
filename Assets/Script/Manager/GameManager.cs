@@ -822,11 +822,10 @@ public class GameManager : MonoBehaviour
         LandUnit unit = obj.GetComponent<LandUnit>();
 
         unit.UnitInit(this, UiManager.instance, playerFaction, landUnitData[id]);
-        unit.SetUpPosition(hex);
         playerFaction.Units.Add(unit);
         unit.UnitStatus = UnitStatus.Hidden;
 
-        return null;
+        return unit;
     }
 
     public void PayUnitPrice(int i)

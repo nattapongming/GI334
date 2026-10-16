@@ -47,7 +47,7 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         this.terrainSlot = terrainSlot;
     }
 
-    public void checkStatusIcon()
+    public void CheckStatusIcon()
     {
         if (statusIcon == null) return;
 

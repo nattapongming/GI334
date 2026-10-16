@@ -118,8 +118,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private bool inEurope;
     public bool InEurope { get { return inEurope; } }
 
-    [SerializeField]
-    private GameObject shipDragPrefab; // ship icon drag
+    
+    [SerializeField] private GameObject shipDragPrefab; // ship icon drag
     public GameObject ShipDragPrefab { get { return shipDragPrefab; } }
 
     public static UiManager instance;
@@ -671,9 +671,130 @@ public class UiManager : MonoBehaviour
         SetupSelectedShipsCargoSlotEurope(ship);
     }
 
+    public void CheckShipArriveWithPassenger(Hex hex)
+    {
+        foreach (Unit unit in hex.UnitsInHex)
+        {
+            if (unit.UnitType == UnitType.Naval)
+            {
+                NavalUnit ship = (NavalUnit)unit;
+                GameManager.instance.CheckPassengerArriving(ship, hex, ship.Faction);
+            }
+        }
+    }
+
+    private void SwapUnitMemberInTownToTheFront(List<Unit> unitList)
+    {
+        if (CurLandUnit == null) return;
+
+        int i = unitList.IndexOf(curLandUnit);
+
+        if (i == -1) return;
+
+        Unit unit = unitList[i];
+
+        unitList.RemoveAt(i);
+        unitList.Insert(0, unit);  
+    }
+
+    private void SwapUnitMemberInEuropeToTheFront(List<LandUnit> landUnitList)
+    {
+        if (CurLandUnit == null) return;
+
+        int i = landUnitList.IndexOf(curLandUnit);
+
+        if (i == -1) return;
+
+        LandUnit landUnit = landUnitList[i];
+
+        landUnitList.RemoveAt(i);
+        landUnitList.Insert(0, landUnit);
+    }
+
+    private void MoveToTheFront()
+    {
+        if (inEurope) SwapUnitMemberInEuropeToTheFront(EuropeManager.instance.LandUnitsInEurope);
+        else SwapUnitMemberInTownToTheFront(GameManager.instance.CurTown.CurHex.UnitsInHex);
+    }
+
+    public void SetOrderForLandUnit(int i)
+    {
+        if (curLandUnit == null) return;
+
+        switch (i)
+        {
+            case 0:
+                curLandUnit.UnitStatus = UnitStatus.None;
+                curUnitIcon.CheckStatusIcon();
+                break;
+            case 1:
+                curLandUnit.UnitStatus = UnitStatus.ToBoard;
+                curUnitIcon.CheckStatusIcon();
+                break;
+            case 2:
+                MoveToTheFront();
+                DestoryOldUnitDrag();
+
+                if (inEurope) SetUpUnitDragInEuropePort();
+                else
+                {
+                    SetupUnitDragOutSideTown(GameManager.instance.CurTown.CurHex);
+                    SetUpUnitDragWorkingInTerrain();
+                }
+                break;
+        }
+    }
+
+    public void CreateUnitDragInEuropePort(int i) // Map with train each unit button 
+    {
+        if (!GameManager.instance.CheckLandUnitPriceAndMoney(i)) return;
+
+        LandUnit landUnit = GameManager.instance.GenerateHiddenLandUnit(i);
+        EuropeManager.instance.LandUnitsInEurope.Add(landUnit);
+
+        // Hide unit's game object in map01
+        landUnit.gameObject.SetActive(false);
+
+        GameObject unitObj = Instantiate(unitDragPrefab, europePortUnitParent.transform);
+        waitingLandUnitsInEuropeIcons.Add(unitObj);
+
+        UnitDrag unitDrag = unitObj.GetComponent<UnitDrag>();
+        unitDrag.UnitInit(landUnit);
+
+        GameManager.instance.PayUnitPrice(i);
+        UpdateMoneyEuropeText();
+        // ToggleTrainPanel(false);
+    }
+
+    public void SetUpUnitDragInEuropePort()
+    {
+        foreach (LandUnit unit in EuropeManager.instance.LandUnitsInEurope)
+        {
+            if (unit.UnitType == UnitType.Land)
+            {
+                if (unit.UnitStatus == UnitStatus.None 
+                || unit.UnitStatus == UnitStatus.ToBoard
+                || unit.UnitStatus == UnitStatus.Hidden)
+                {
+                    GameObject unitObj = Instantiate(unitDragPrefab, europePortUnitParent.transform);
+                    waitingLandUnitsInEuropeIcons.Add(unitObj);
+
+                    UnitDrag unitDrag = unitObj.GetComponent<UnitDrag>();
+                    unitDrag.UnitInit(unit);
+                    unitDrag.CheckStatusIcon();
+                }
+            }
+        }
+    }
+
     public void TogglePurchasePanel(bool flag)
     {
         purchaseShipPanel.SetActive(flag);
+    }
+
+    public void ToggleTrainPanel(bool flag)
+    {
+        trainUnitPanel.SetActive(flag);
     }
 
     public void ToggleOrderPanel(bool flag)
