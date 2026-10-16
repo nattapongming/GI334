@@ -12,6 +12,10 @@ public class SelectNation : MonoBehaviour
 
     [SerializeField] private int index = 0;
 
+    [SerializeField] private GameObject blackPanel;
+
+    [SerializeField] private GameObject[] panels;
+
     public void SelectEuropeNation(int i)
     {
         index = i;
@@ -24,5 +28,23 @@ public class SelectNation : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(nextScene);
+    }
+
+    public void ShowKingsCommand()
+    {
+        blackPanel.SetActive(true);
+        panels[0].SetActive(true);
+    }
+
+    public void ShowPrepareToLeave()
+    {
+        panels[0].SetActive(false);
+        panels[1].SetActive(true);
+    }
+
+    public void ShowLeftThePort()
+    {
+        panels[1].SetActive(false);
+        panels[2].SetActive(true);
     }
 }
