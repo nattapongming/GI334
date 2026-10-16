@@ -65,6 +65,8 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (uiMgr.InEurope) return;
+
         iconParent = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsFirstSibling();
@@ -73,11 +75,15 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (uiMgr.InEurope) return;
+
         transform.position = Mouse.current.position.value;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (uiMgr.InEurope) return;
+
         transform.SetParent(iconParent);
         unitImage.raycastTarget = true;
     }
@@ -85,7 +91,9 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnPointerClick(PointerEventData eventData)
     {
         if (landUnit.UnitStatus == UnitStatus.None 
-        || landUnit.UnitStatus == UnitStatus.OnBoard)
+        || landUnit.UnitStatus == UnitStatus.OnBoard
+        || landUnit.UnitStatus == UnitStatus.ToBoard
+        || landUnit.UnitStatus == UnitStatus.Hidden)
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {

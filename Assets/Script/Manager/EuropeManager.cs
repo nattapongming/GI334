@@ -99,7 +99,17 @@ public class EuropeManager : MonoBehaviour
             {
                 shipsInEurope.Add(shipsInTransit.Ship);
                 shipsReachEurope.Add(shipsInTransit);
-            } else
+
+                // Passenger arrives Europe
+                foreach (LandUnit passenger in shipsInTransit.Ship.Passengers)
+                {
+                    passenger.UnitStatus = UnitStatus.None;
+                    landUnitsInEurope.Add(passenger);
+                }
+                shipsInTransit.Ship.Passengers.Clear();
+
+            } 
+            else
             {
                 shipsInTransit.TurnLeft --;
                 if (shipsInTransit.TurnLeft < 1)
@@ -147,6 +157,8 @@ public class EuropeManager : MonoBehaviour
     {
         if (!shipsInEurope.Contains(ship)) return;   // only ships docked in Europe may leave
 
+        CheckIfPassengerInEuropeReadyToBoardShip(ship);
+
         ShipInTransit shipInTransit = new ShipInTransit(ship, EUROPE_DISTANCE);
 
         shipsFromEurope.Add(shipInTransit);
@@ -161,7 +173,7 @@ public class EuropeManager : MonoBehaviour
 
         foreach (LandUnit landUnit in landUnitsInEurope)
         {
-            if (landUnit.UnitType == UnitType.Land && landUnit.UnitStatus == UnitStatus.OnBoard)
+            if (landUnit.UnitType == UnitType.Land && landUnit.UnitStatus == UnitStatus.ToBoard)
             {
                 if ((ship.Passengers.Count + ship.CargoList.Count) < ship.CargoHoldNum)
                 {

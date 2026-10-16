@@ -174,13 +174,24 @@ public class UiManager : MonoBehaviour
         layout.spacing = -result;
     }
 
-    private void DestoryOldUnitDrag()
+    public void DestoryOldUnitDrag()
     {
-        foreach (GameObject obj in allUnitDrag)
+        if (inEurope)
         {
-            Destroy(obj);
+            foreach (GameObject obj in waitingLandUnitsInEuropeIcons)
+            {
+                Destroy(obj);
+            }
+            waitingLandUnitsInEuropeIcons.Clear();
         }
-        allUnitDrag.Clear();
+        else
+        {
+            foreach (GameObject obj in allUnitDrag)
+            {
+                Destroy(obj);
+            }
+            allUnitDrag.Clear();
+        }
     }
 
     private void HideUnitWorkInTown(Hex hex)
@@ -284,6 +295,8 @@ public class UiManager : MonoBehaviour
             SetupShipsFromEurope(EuropeManager.instance.ShipsFromEurope);
             SetupShipsInEurope(EuropeManager.instance.ShipsInEurope);
             SetupShipsCargoSlotEurope(EuropeManager.instance.ShipsInEurope);
+            DestoryOldUnitDrag();
+            SetUpUnitDragInEuropePort();
             SetupStockSlotEurope();
             UpdateMoneyEuropeText();
         }
@@ -743,6 +756,7 @@ public class UiManager : MonoBehaviour
                 }
                 break;
         }
+        ToggleOrderPanel(false);
     }
 
     public void CreateUnitDragInEuropePort(int i) // Map with train each unit button 

@@ -168,5 +168,5 @@ MonoBehaviour:
   landUnit: {fileID: 0}
   iconParent: {fileID: 0}
   terrainSlot: {fileID: 0}
-  statusIcon: {fileID: 0}
+  statusIcon: {fileID: 7673163869266792186}
   uiMgr: {fileID: 0}

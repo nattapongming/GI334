@@ -102,6 +102,8 @@ MonoBehaviour:
   movePointMax: 0
   faction: {fileID: 0}
   visualRange: 0
+  targetUnit: {fileID: 0}
+  statusSprite: {fileID: 0}
   curPos: {x: 0, y: 0}
   curHex: {fileID: 0}
   targetHex: {fileID: 0}
@@ -110,6 +112,10 @@ MonoBehaviour:
   unitSprite: {fileID: 21433691186486898}
   flagSprite: {fileID: 7793758500970907255}
   borderSprite: {fileID: 7764913318760352159}
+  statusSpritesList:
+  - {fileID: 21300000, guid: a41e3dcd6ce4b2a4cac30262f71a36ab, type: 3}
+  - {fileID: 21300000, guid: 0012fca6ea196fa4c9009300f1bd74a1, type: 3}
+  - {fileID: 21300000, guid: c0d89a32dd8a52a4482c61fd3b6a7f5c, type: 3}
   gameMgr: {fileID: 0}
   landUnitType: 0
   toolsNum: 0
@@ -118,6 +124,8 @@ MonoBehaviour:
   armed: 0
   hasMusket: 0
   hasHorse: 0
+  transportShip: {fileID: 0}
+  uiMgr: {fileID: 0}
 --- !u!1 &1155132366208797632
 GameObject:
   m_ObjectHideFlags: 0
