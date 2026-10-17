@@ -15,4 +15,4 @@ MonoBehaviour:
   id: 4
   productName: Fur
   icons:
-  - {fileID: 21300000, guid: 2f66457dc1d196b4db8a7276b07c162a, type: 3}
+  - {fileID: 21300000, guid: d43c195c88b92d548aa10079db71f26e, type: 3}
