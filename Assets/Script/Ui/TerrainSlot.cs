@@ -50,16 +50,16 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         gameObject.SetActive(hex != null); // hide the slot at the map edge
         if (hex == null) return;
 
-        terrainImage.sprite = hex.TerrainSprite.sprite;
+        SetHexImage(terrainImage, hex.TerrainSprite.sprite);
         SetupNormalYield();
 
         forestImage.gameObject.SetActive(hex.HasForest);
         if (hex.HasForest)
-            forestImage.sprite = hex.ForestSprite.sprite;
+            SetHexImage(forestImage, hex.ForestSprite.sprite);
 
         townImage.gameObject.SetActive(hex.HasTown);
         if (hex.HasTown)
-            townImage.sprite = hex.Town.TownSprite.sprite;
+            SetHexImage(townImage, hex.Town.TownSprite.sprite);
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -195,4 +195,15 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
         AdjustActualYield();
         Accumulate();
     }
+
+    // Make a UI Image match its sprite like the world SpriteRenderer (100 UI px = 1 world unit)
+    private void SetHexImage(Image img, Sprite sprite)
+    {
+        img.sprite = sprite;
+        RectTransform rt = img.rectTransform;
+        rt.sizeDelta = sprite.rect.size * (100f / sprite.pixelsPerUnit);
+        rt.pivot = sprite.pivot / sprite.rect.size;   // use the sprite's own pivot
+        rt.anchoredPosition = Vector2.zero;           // pivot = hex center = slot center
+    }
+
 }
