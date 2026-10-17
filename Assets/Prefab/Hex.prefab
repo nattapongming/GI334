@@ -81,15 +81,15 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: f8564a56c22d7914798bd2a1e6eff3c1, type: 3}
+  m_Sprite: {fileID: -3520306375830930403, guid: c7af979ee3aa9a14fa5cd6310c901479, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 3.84}
+  m_Size: {x: 2.969072, y: 2.8865979}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!1 &1574309552975615216
 GameObject:
@@ -117,8 +117,8 @@ Transform:
   m_GameObject: {fileID: 1574309552975615216}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 1.016, y: 1.09, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6521324989000573184}
@@ -169,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1482557447
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1631165219517050994, guid: 0bd2cb51647b0ac4ea3c1a272a2b79ba, type: 3}
@@ -614,8 +614,12 @@ MonoBehaviour:
   hexType: 4
   terrainSprite: {fileID: 6595603908552709993}
   forestSprite: {fileID: 6898974137207047983}
+  town: {fileID: 0}
   hexName: 
   resourceYields: 
+  unitsInHex: []
+  labor: {fileID: 0}
+  yieldID: -1
   fogSprite: {fileID: 8066137893344618607}
   darkSprite: {fileID: 7977376703404336874}
   hasTown: 0
@@ -652,8 +656,8 @@ Transform:
   m_GameObject: {fileID: 7979986142107249318}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 1.016, y: 1.09, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6521324989000573184}
@@ -704,7 +708,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1482557447
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4866732058031255199, guid: a0c27bececacfed45b33f5dbce2879c6, type: 3}
