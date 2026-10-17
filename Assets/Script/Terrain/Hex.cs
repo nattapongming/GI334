@@ -11,7 +11,7 @@ public enum HexType
     GrassLand,
     Prairie,
     Savanna,
-    Jungle,
+    Plain,
     Tundra,
     Desert,
     Swamp,

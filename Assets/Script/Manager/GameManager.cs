@@ -560,13 +560,13 @@ public class GameManager : MonoBehaviour
         // Prairie
         else if ((y >= GRASSSOUTH && y < PRAIRIESOUTH) || (y >= PRAIRIENORTH && y < GRASSNORTH))
         {
-            GenerateBiome(x, y, hex, hexPos, 2, new List<int> { 1, 3, 4 }); // Grassland, Savanna, Jungle
+            GenerateBiome(x, y, hex, hexPos, 2, new List<int> { 1, 3, 4 }); // Grassland, Savanna, Plain
         }
 
         // Savanna
         else if ((y >= PRAIRIESOUTH && y < SAVANNASOUTH) || (y >= SAVANNANORTH && y < PRAIRIENORTH))
         {
-            GenerateBiome(x, y, hex, hexPos, 3, new List<int> { 1, 2, 4, 6 }); // Grassland, Prairie, Jungle, Desert
+            GenerateBiome(x, y, hex, hexPos, 3, new List<int> { 1, 2, 4, 6 }); // Grassland, Prairie, Plain, Desert
         }
 
         // Tropical

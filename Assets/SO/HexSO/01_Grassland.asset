@@ -15,14 +15,14 @@ MonoBehaviour:
   hexName: Grassland
   hexType: 1
   terrainSprites:
-  - {fileID: 21300000, guid: 015a28a661bd3d94787deb484dff2c8f, type: 3}
-  - {fileID: 21300000, guid: c8c5c271ac613b34bb560fa070cdde5f, type: 3}
-  - {fileID: 21300000, guid: 3f282a88f3237ae41a5433773f7a9f02, type: 3}
-  - {fileID: 21300000, guid: 95550f0079346ee43aa05819a0887ea9, type: 3}
+  - {fileID: -9052213951177698387, guid: 38c0064f7d477bc4c9162b504ca1dafa, type: 3}
+  - {fileID: -1398858168, guid: 38c0064f7d477bc4c9162b504ca1dafa, type: 3}
+  - {fileID: 499194435, guid: 38c0064f7d477bc4c9162b504ca1dafa, type: 3}
+  - {fileID: 1551555148, guid: 38c0064f7d477bc4c9162b504ca1dafa, type: 3}
   forestSprites:
-  - {fileID: 21300000, guid: 0dcaa329b05c9e54f90b6a645fdb670d, type: 3}
-  - {fileID: 21300000, guid: 5fbeec7a4883fc942912434555407598, type: 3}
-  - {fileID: 21300000, guid: 405e7a39e02ffe14a8863458876fc7b4, type: 3}
-  - {fileID: 21300000, guid: 8d4bc3cedee1252439cec73aae503e27, type: 3}
+  - {fileID: -8319647251690163079, guid: 0b90bf2affac1c84a8c62e204c8dc7b4, type: 3}
+  - {fileID: 1896291605, guid: 0b90bf2affac1c84a8c62e204c8dc7b4, type: 3}
+  - {fileID: 1647512752, guid: 0b90bf2affac1c84a8c62e204c8dc7b4, type: 3}
+  - {fileID: -2026702002, guid: 0b90bf2affac1c84a8c62e204c8dc7b4, type: 3}
   resourceYields: 0000000000000000000000000000000000000000000000000000000000000000
   moveCost: 1

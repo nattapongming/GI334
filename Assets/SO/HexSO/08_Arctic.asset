@@ -15,10 +15,10 @@ MonoBehaviour:
   hexName: Arctic
   hexType: 8
   terrainSprites:
-  - {fileID: 21300000, guid: ac8c2ca0ed5b6124bb2497e039c5c116, type: 3}
-  - {fileID: 21300000, guid: 3d4df5565fe576d4c938ae5d1f4c15a8, type: 3}
-  - {fileID: 21300000, guid: 310868734047daa4588c2f2040a66cb2, type: 3}
-  - {fileID: 21300000, guid: 15c3ba8b1b38bc243a727c803ffd8817, type: 3}
+  - {fileID: 6904659886983351740, guid: 5d384262d36d40e4790c503ee5202e04, type: 3}
+  - {fileID: -1589141013, guid: 5d384262d36d40e4790c503ee5202e04, type: 3}
+  - {fileID: -756353844, guid: 5d384262d36d40e4790c503ee5202e04, type: 3}
+  - {fileID: 2071323663, guid: 5d384262d36d40e4790c503ee5202e04, type: 3}
   forestSprites: []
   resourceYields: 0000000000000000000000000000000000000000000000000000000000000000
   moveCost: 1

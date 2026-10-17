@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6271082f7e3c3e347aec6031280c5929, type: 3}
+  m_Name: 04_Plain
+  m_EditorClassIdentifier: Assembly-CSharp::HexData
+  hexName: Plain
+  hexType: 4
+  terrainSprites:
+  - {fileID: 9189355511373218562, guid: 132a235878088b841bce34b0320135dc, type: 3}
+  - {fileID: -1737239812, guid: 132a235878088b841bce34b0320135dc, type: 3}
+  - {fileID: -1106854797, guid: 132a235878088b841bce34b0320135dc, type: 3}
+  - {fileID: -780710772, guid: 132a235878088b841bce34b0320135dc, type: 3}
+  forestSprites:
+  - {fileID: 495952241766594469, guid: 9284b0e0a367c91458aad4758280e69a, type: 3}
+  - {fileID: -876481734, guid: 9284b0e0a367c91458aad4758280e69a, type: 3}
+  - {fileID: 796582281, guid: 9284b0e0a367c91458aad4758280e69a, type: 3}
+  - {fileID: -1842195370, guid: 9284b0e0a367c91458aad4758280e69a, type: 3}
+  resourceYields: 0500000004000000030000000300000000000000000000000000000000000000
+  moveCost: 1

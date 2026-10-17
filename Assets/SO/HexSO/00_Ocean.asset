@@ -15,10 +15,10 @@ MonoBehaviour:
   hexName: Ocean
   hexType: 0
   terrainSprites:
-  - {fileID: 21300000, guid: eb60b661799ea7b4caa0769fef8a6247, type: 3}
-  - {fileID: 21300000, guid: aad998769840d7343888bc30275c03f3, type: 3}
-  - {fileID: 21300000, guid: df7adc309f5b2f2438354822352fa1cb, type: 3}
-  - {fileID: 21300000, guid: 4513f066c009bc4419745f8da458fc73, type: 3}
+  - {fileID: -3520306375830930403, guid: c7af979ee3aa9a14fa5cd6310c901479, type: 3}
+  - {fileID: 1315940900, guid: c7af979ee3aa9a14fa5cd6310c901479, type: 3}
+  - {fileID: 1776565085, guid: c7af979ee3aa9a14fa5cd6310c901479, type: 3}
+  - {fileID: -375960714, guid: c7af979ee3aa9a14fa5cd6310c901479, type: 3}
   forestSprites: []
   resourceYields: 0400000000000000000000000000000000000000000000000000000000000000
   moveCost: 1

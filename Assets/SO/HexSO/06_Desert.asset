@@ -15,14 +15,14 @@ MonoBehaviour:
   hexName: Desert
   hexType: 6
   terrainSprites:
-  - {fileID: 21300000, guid: fa7a0fcf9de86b94bb86b6854fd6ee97, type: 3}
-  - {fileID: 21300000, guid: 629bc9f4761e3844094cb25beab91240, type: 3}
-  - {fileID: 21300000, guid: 7d19f09da451fbb45a0e8b8919e074e4, type: 3}
-  - {fileID: 21300000, guid: dfbfc9476258b8d4b9ba7f8024566e9e, type: 3}
+  - {fileID: 5961938098215790884, guid: 77c7b237c5e4c0d48a5121c88baef27d, type: 3}
+  - {fileID: -550437451, guid: 77c7b237c5e4c0d48a5121c88baef27d, type: 3}
+  - {fileID: -1762479374, guid: 77c7b237c5e4c0d48a5121c88baef27d, type: 3}
+  - {fileID: 2144991705, guid: 77c7b237c5e4c0d48a5121c88baef27d, type: 3}
   forestSprites:
-  - {fileID: 21300000, guid: a10fe4bd31bd25642ac984bb745602a2, type: 3}
-  - {fileID: 21300000, guid: af10ea495e4c5444483486aad9728b38, type: 3}
-  - {fileID: 21300000, guid: 481a96d13d14a834aa24c21b5a12faa2, type: 3}
-  - {fileID: 21300000, guid: e9169d5695cc17a4a8367b2894ff8e69, type: 3}
+  - {fileID: -7003082187965485176, guid: 737c670ad81ebc64d9cca1a4795a222f, type: 3}
+  - {fileID: 1249630808, guid: 737c670ad81ebc64d9cca1a4795a222f, type: 3}
+  - {fileID: 1505994808, guid: 737c670ad81ebc64d9cca1a4795a222f, type: 3}
+  - {fileID: -399594273, guid: 737c670ad81ebc64d9cca1a4795a222f, type: 3}
   resourceYields: 0000000000000000000000000000000000000000000000000000000000000000
   moveCost: 1
